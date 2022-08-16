@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { Token } from 'src/app/models/token/token';
+import { Utilisateur } from 'src/app/models/utilisateur/utilisateur';
+import { AccountsService } from 'src/app/service/auth/accounts/accounts.service';
 
 @Component({
     selector: 'app-login',
@@ -8,6 +12,7 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
         :host ::ng-deep .p-password input {
             width: 100%;
             padding:1rem;
+            margin-bottom:5%;
         }
 
         :host ::ng-deep .pi-eye{
@@ -23,11 +28,25 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
         }
     `]
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
-    valCheck: string[] = ['remember'];
+    user : Utilisateur = new Utilisateur();
+    token : Token = new Token();
 
-    password!: string;
+    constructor(public layoutService: LayoutService, private authService : AccountsService, private router : Router) { }
 
-    constructor(public layoutService: LayoutService) { }
+    ngOnInit() {
+        if(localStorage.getItem("token")!=null){
+            this.router.navigate(['/']);
+        }
+    }
+
+    login(){
+        this.authService.login(this.user).subscribe(data=>{
+            this.token = data;
+            this.router.navigate(['/'])
+        },err=>{
+            alert("Les informations sont incorrects")
+        })
+    }
 }
