@@ -11,7 +11,8 @@ import { EventService } from './demo/service/event.service';
 import { IconService } from './demo/service/icon.service';
 import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptorInterceptor } from './interceptors/auth/token-interceptor.interceptor';
 
 @NgModule({
     declarations: [
@@ -24,6 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
+        {provide:HTTP_INTERCEPTORS, useClass:TokenInterceptorInterceptor, multi:true},
         CountryService, CustomerService, EventService, IconService, NodeService,
         PhotoService, ProductService
     ],

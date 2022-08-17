@@ -24,7 +24,7 @@ export class AccountsService {
   }
 
   public refreshtoken(refreshToken:String):Observable<any>{
-    return this.httpClient.get("http://localhost:8080/token/refreshToken",
+    return this.httpClient.get("http://localhost:8080/api/token/refreshToken",
       {headers : new HttpHeaders({
           'Authorization' : "Bearer "+refreshToken
       })});
