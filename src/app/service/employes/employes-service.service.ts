@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Employe } from 'src/app/models/employees/employe';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -10,7 +11,17 @@ export class EmployesServiceService {
 
   constructor(private http : HttpClient) { }
 
-  public users():Observable<any>{
-    return this.http.get(environment.apiUrl+"users/");
+  private url : string = environment.apiUrl+"employes/";
+
+  public getAll():Observable<any>{
+    return this.http.get(this.url);
+  }
+
+  public save(employe:Employe):Observable<any>{
+    return this.http.post(this.url, employe);
+  }
+
+  public delete(id:number):Observable<any>{
+    return this.http.delete(this.url+id);
   }
 }
