@@ -6,12 +6,16 @@ import { ProductService } from 'src/app/demo/service/product.service';
 import { EmployesServiceService } from 'src/app/service/employes/employes-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employe } from 'src/app/models/employees/employe';
+import { Service } from 'src/app/models/services/service';
+import { ServiceAppService } from 'src/app/service/servicesApp/service-app.service';
 
 @Component({
-    templateUrl: './crud.component.html',
-    providers: [MessageService]
+  selector: 'app-service-app',
+  templateUrl: './service-app.component.html',
+  styleUrls: ['./service-app.component.scss'],
+  providers: [MessageService]
 })
-export class CrudComponent implements OnInit {
+export class ServiceAppComponent implements OnInit {
 
     productDialog: boolean = false;
 
@@ -19,9 +23,9 @@ export class CrudComponent implements OnInit {
 
     deleteProductsDialog: boolean = false;
 
-    employes: Employe[] = [];
+    services: Service[] = [];
 
-    employe: Employe = new Employe();
+    service: Service = new Service();
 
     product: Product = {};
 
@@ -35,12 +39,12 @@ export class CrudComponent implements OnInit {
 
     rowsPerPageOptions = [5, 10, 20];
 
-    constructor(private activated: ActivatedRoute, private productService: ProductService, private messageService: MessageService, private employesService : EmployesServiceService, private router : Router) { }
+    constructor(private messageService: MessageService, private serviceApp : ServiceAppService, private router : Router) { }
 
     ngOnInit() {
 
-        this.employesService.getAll().subscribe(data=>{
-            this.employes = data;
+        this.serviceApp.getAll().subscribe(data=>{
+            this.services = data;
             console.log(data)
         },err=>{
             this.router.navigate(['/']);
@@ -64,45 +68,45 @@ export class CrudComponent implements OnInit {
         this.deleteProductsDialog = true;
     }
 
-    editProduct(employe: Employe) {
-        this.employe = { ...employe };
+    editProduct(service: Service) {
+        this.service = { ...service };
         this.productDialog = true;
     }
 
-    deleteProduct(employe: Employe) {
-        //this.deleteProductDialog = true;
-        //this.employesService.delete(employe.id_employe)
-        //this.employe = { ...employe };
-        this.employesService.delete(employe.id_employe).subscribe(data=>{
-            this.ngOnInit();
-        },err=>{
-            alert("Error, try again")
-        })
-    }
+    // deleteProduct(employe: Employe) {
+    //     //this.deleteProductDialog = true;
+    //     //this.employesService.delete(employe.id_employe)
+    //     //this.employe = { ...employe };
+    //     this.serviceApp.delete(employe.id_employe).subscribe(data=>{
+    //         this.ngOnInit();
+    //     },err=>{
+    //         alert("Error, try again")
+    //     })
+    // }
 
-    confirmDeleteSelected() {
-        this.deleteProductsDialog = false;
-        //this.employes = this.employes.filter(val => !this.selectedProducts.includes(val));
-        this.employesService.delete(this.employe.id_employe).subscribe(data=>{
-            this.ngOnInit();
-        },err=>{
-            alert("Error, try again")
-        })
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
-        //this.selectedProducts = [];
-    }
+    // confirmDeleteSelected() {
+    //     this.deleteProductsDialog = false;
+    //     //this.employes = this.employes.filter(val => !this.selectedProducts.includes(val));
+    //     this.employesService.delete(this.employe.id_employe).subscribe(data=>{
+    //         this.ngOnInit();
+    //     },err=>{
+    //         alert("Error, try again")
+    //     })
+    //     this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
+    //     //this.selectedProducts = [];
+    // }
 
-    confirmDelete() {
-        this.deleteProductDialog = false;
-        // this.employes = this.employes.filter(val => val.id_employe !== this.employe.id_employe);
-        this.employesService.delete(this.employe.id_employe).subscribe(data=>{
-            this.ngOnInit();
-        },err=>{
-            alert("Error, try again")
-        })
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-        this.employe = new Employe();
-    }
+    // confirmDelete() {
+    //     this.deleteProductDialog = false;
+    //     // this.employes = this.employes.filter(val => val.id_employe !== this.employe.id_employe);
+    //     this.employesService.delete(this.employe.id_employe).subscribe(data=>{
+    //         this.ngOnInit();
+    //     },err=>{
+    //         alert("Error, try again")
+    //     })
+    //     this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+    //     this.employe = new Employe();
+    // }
 
     hideDialog() {
         this.productDialog = false;
@@ -111,10 +115,10 @@ export class CrudComponent implements OnInit {
 
     saveProduct() {
         this.submitted = true;
-
-        this.employesService.save(this.employe).subscribe(data=>{
+        this.service.id_service = 0;
+        this.serviceApp.save(this.service).subscribe(data=>{
             this.productDialog = false;
-            this.employe = new Employe();
+            this.service = new Service();
             this.ngOnInit();
         },err=>{
             alert("Error, try again")
@@ -163,4 +167,5 @@ export class CrudComponent implements OnInit {
     viewEmploye(employe : Employe){
         this.router.navigate(['employes/'+employe.id_employe])
     }
+
 }

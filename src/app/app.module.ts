@@ -13,15 +13,49 @@ import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorInterceptor } from './interceptors/auth/token-interceptor.interceptor';
+import { EmployeComponent } from './demo/components/Employe/employe/employe.component';
+import { MenubarModule } from 'primeng/menubar';
+import { ServiceAppComponent } from './demo/components/pages/serviceApp/service-app/service-app.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
+import { RatingModule } from 'primeng/rating';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { DropdownModule } from 'primeng/dropdown';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
     declarations: [
-        AppComponent, NotfoundComponent
+        AppComponent, NotfoundComponent, EmployeComponent, ServiceAppComponent
     ],
     imports: [
         AppRoutingModule,
         AppLayoutModule,
-        HttpClientModule
+        HttpClientModule,
+        MenubarModule,
+        CommonModule,
+        TableModule,
+        FileUploadModule,
+        FormsModule,
+        ButtonModule,
+        RippleModule,
+        ToastModule,
+        ToolbarModule,
+        RatingModule,
+        InputTextModule,
+        InputTextareaModule,
+        DropdownModule,
+        RadioButtonModule,
+        InputNumberModule,
+        DialogModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

@@ -1,3 +1,5 @@
+import { Service } from "../services/service";
+
 export class Employe {
     public id_employe !: number;
     public nom !: string;
@@ -10,4 +12,5 @@ export class Employe {
     public adresse !: string;
     public cin !: string;
     public photo !: string;
+    public service !: Service;
 }
