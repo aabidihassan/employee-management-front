@@ -33,11 +33,11 @@
                         </th> -->
                         <th pSortableColumn="matricule">Matricule <p-sortIcon field="matricule"></p-sortIcon></th>
                         <th pSortableColumn="nom">Nom Complet <p-sortIcon field="nom"></p-sortIcon></th>
-                        <th>Image</th>
+                        <!-- <th>Image</th> -->
                         <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
                         <th pSortableColumn="telephone">Telephone <p-sortIcon field="telephone"></p-sortIcon></th>
                         <!-- <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th> -->
-                        <!-- <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th> -->
+                        <th pSortableColumn="service">Service <p-sortIcon field="service"></p-sortIcon></th>
                         <th></th>
                     </tr>
                 </ng-template>
@@ -53,9 +53,9 @@
                             <span class="p-column-title">Nom complet</span>
                             {{employe.nom}}{{" "}}{{employe.prenom}}
                         </td>
-                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">Image</span>
-                            <!-- <img [src]="'assets/demo/images/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /> -->
-                        </td>
+                        <!-- <td style="width:14%; min-width:10rem;"><span class="p-column-title">Image</span>
+                            <img [src]="'assets/demo/images/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" />
+                        </td> -->
                         <td style="width:14%; min-width:8rem;">
                             <span class="p-column-title">Email</span>
                             {{employe.email}}
@@ -64,10 +64,14 @@
                             <span class="p-column-title">Telephone</span>
                             {{employe.telephone}}
                         </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Service</span>
+                            {{employe.service.nom_service}}
+                        </td>
                         <!-- <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Reviews</span>
                             <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
-                        </td>
-                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Status</span>
+                        </td> -->
+                        <!-- <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Service</span>
                             <span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span>
                         </td> -->
                         <td>
@@ -125,17 +129,17 @@
                     <textarea id="adresse" pInputTextarea [(ngModel)]="employe.adresse" required rows="3" cols="20"></textarea>
                 </div>
 
-                <!-- <div class="field">
-                    <label for="status">Inventory Status</label>
-                    <p-dropdown id="status" [options]="statuses" optionLabel="label" [(ngModel)]="product.inventoryStatus" placeholder="Select a Status">
+                <div class="field">
+                    <label for="status">Service</label>
+                    <p-dropdown id="service" [options]="services" optionLabel="nom_service" [(ngModel)]="employe.service" placeholder="Choisir un service">
                         <ng-template pTemplate="selectedItem">
-                            <span *ngIf="product && product.inventoryStatus" [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
+                            <span *ngIf="employe && employe.service" [class]="'product-badge status-' + employe.service.nom_service">{{employe.service.nom_service}}</span>
                         </ng-template>
-                        <ng-template let-status pTemplate="status">
-                            <span [class]="'product-badge status-' + status.value.toLowerCase()">{{status.label}}</span>
+                        <ng-template let-service pTemplate="service">
+                            <span [class]="'product-badge status-' + service.nom_service">{{service.nom_service}}</span>
                         </ng-template>
                     </p-dropdown>
-                </div> -->
+                </div>
 
                 <div class="field">
                     <label class="mb-3">Genre</label>

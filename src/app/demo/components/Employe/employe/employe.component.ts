@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Employe } from 'src/app/models/employees/employe';
@@ -19,6 +19,10 @@ export class EmployeComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.employe = history.state.employe
+
+    console.log(this.employe)
+
     this.tieredItems = [
         {
             label: 'Employé',
@@ -30,15 +34,18 @@ export class EmployeComponent implements OnInit {
                     items: [
                         {
                             label: 'Personnel',
-                            icon: 'pi pi-fw pi-plus'
+                            icon: 'pi pi-fw pi-plus',
+                            routerLink: ''
                         },
                         {
                             label: 'Contact',
-                            icon: 'pi pi-fw pi-copy'
+                            icon: 'pi pi-fw pi-copy',
+                            routerLink: 'contact'
                         },
                         {
                             label: 'Familial',
-                            icon: 'pi pi-fw pi-copy'
+                            icon: 'pi pi-fw pi-copy',
+                            routerLink: 'famille'
                         },
 
                     ]
@@ -73,17 +80,10 @@ export class EmployeComponent implements OnInit {
         },
     ];
 
-    this.activate.params.subscribe(data=>{
-        this.employeService.getById(data['id']).subscribe(data=>{
-            this.employe = data;
-            console.log(this.employe)
-        },err=>{
+  }
 
-        })
-    })
-
-
-
+  pass(component:any){
+    component.employe = this.employe;
   }
 
 }

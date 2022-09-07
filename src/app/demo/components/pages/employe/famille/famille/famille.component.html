@@ -1,0 +1,21 @@
+<div class="card mt-4">
+    <h5>Informations de Famille</h5>
+    <div class="p-fluid p-formgrid grid mt-2">
+        <div class="field col-12">
+            <label htmlFor="situation">Situation Familiale</label>
+            <p-dropdown [options]="situation" optionLabel="name"></p-dropdown>
+        </div>
+        <div class="field col-12 md:col-6">
+            <label htmlFor="nb_enfant">Nombre d'enfants</label>
+            <input pInputText id="nb_enfant" type="text" />
+        </div>
+        <div class="field col-12 md:col-6">
+            <label htmlFor="prenom">Enfants adult</label>
+            <input pInputText id="prenom" type="text" />
+        </div>
+        <div class="field col-12">
+            <label htmlFor="naissance">Telephone</label>
+            <input pInputTextarea id="naissance" rows="4" />
+        </div>
+    </div>
+</div>

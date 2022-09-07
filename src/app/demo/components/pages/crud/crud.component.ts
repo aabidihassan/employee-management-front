@@ -6,6 +6,8 @@ import { ProductService } from 'src/app/demo/service/product.service';
 import { EmployesServiceService } from 'src/app/service/employes/employes-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employe } from 'src/app/models/employees/employe';
+import { Service } from 'src/app/models/services/service';
+import { ServiceAppService } from 'src/app/service/servicesApp/service-app.service';
 
 @Component({
     templateUrl: './crud.component.html',
@@ -14,6 +16,8 @@ import { Employe } from 'src/app/models/employees/employe';
 export class CrudComponent implements OnInit {
 
     productDialog: boolean = false;
+
+    services: Service[] = [];
 
     deleteProductDialog: boolean = false;
 
@@ -35,15 +39,21 @@ export class CrudComponent implements OnInit {
 
     rowsPerPageOptions = [5, 10, 20];
 
-    constructor(private activated: ActivatedRoute, private productService: ProductService, private messageService: MessageService, private employesService : EmployesServiceService, private router : Router) { }
+    constructor(private serviceApp: ServiceAppService , private messageService: MessageService, private employesService : EmployesServiceService, private router : Router) { }
 
     ngOnInit() {
 
         this.employesService.getAll().subscribe(data=>{
             this.employes = data;
-            console.log(data)
+            this.serviceApp.getAll().subscribe(data=>{
+                this.services = data;
+            },err=>{
+                this.ngOnInit();
+                //this.router.navigate(['/']);
+            })
         },err=>{
-            this.router.navigate(['/']);
+            this.ngOnInit();
+            //this.router.navigate(['/']);
         })
         //this.productService.getProducts().then(data => this.products = data);
 
@@ -161,6 +171,7 @@ export class CrudComponent implements OnInit {
     }
 
     viewEmploye(employe : Employe){
-        this.router.navigate(['employes/'+employe.id_employe])
+        this.router.navigate(['employes/'+employe.matricule], { state: { employe : employe } })
+
     }
 }

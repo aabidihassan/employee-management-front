@@ -1,0 +1,38 @@
+    <div class="card mt-4">
+        <h5>Informations Personnel</h5>
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-6">
+                <label htmlFor="nom">Nom</label>
+                <input pInputText id="nom" type="text" />
+            </div>
+            <div class="field col-12 md:col-6">
+                <label htmlFor="prenom">Prenom</label>
+                <input pInputText id="prenom" type="text" />
+            </div>
+            <div class="field col-12 md:col-6">
+                <label htmlFor="cin">CIN</label>
+                <input pInputText id="cin" type="text" />
+            </div>
+            <div class="field col-12 md:col-6">
+                <label htmlFor="matricule">Matricule</label>
+                <input pInputText id="matricule" type="text" />
+            </div>
+            <div class="field col-12">
+                <label htmlFor="naissance">Date Naissance</label>
+                <input pInputTextarea type="date" id="naissance" rows="4" />
+            </div>
+            <div class="field col-12">
+                <label htmlFor="address">Adresse</label>
+                <!-- <input pInputTextarea id="address" rows="4" /> -->
+                <textarea id="adresse" pInputTextarea required rows="3" cols="20"></textarea>
+            </div>
+            <div class="field col-12 md:col-6">
+                <label htmlFor="sex">Sex</label>
+                <p-dropdown [options]="sex" optionLabel="name"></p-dropdown>
+            </div>
+            <div class="field col-12 md:col-6">
+                <label htmlFor="status">Statut</label>
+                <p-dropdown [options]="statut" optionLabel="name"></p-dropdown>
+            </div>
+        </div>
+    </div>

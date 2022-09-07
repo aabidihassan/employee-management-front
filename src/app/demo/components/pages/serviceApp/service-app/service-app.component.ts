@@ -115,7 +115,6 @@ export class ServiceAppComponent implements OnInit {
 
     saveProduct() {
         this.submitted = true;
-        this.service.id_service = 0;
         this.serviceApp.save(this.service).subscribe(data=>{
             this.productDialog = false;
             this.service = new Service();

@@ -31,10 +31,19 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
+import { ContactComponent } from './demo/components/pages/employe/contact/contact/contact.component';
+import { PersonnelComponent } from './demo/components/pages/employe/personnel/personnel/personnel.component';
+import { FamilleComponent } from './demo/components/pages/employe/famille/famille/famille.component';
 
 @NgModule({
     declarations: [
-        AppComponent, NotfoundComponent, EmployeComponent, ServiceAppComponent
+        AppComponent,
+        NotfoundComponent,
+        EmployeComponent,
+        ServiceAppComponent,
+        ContactComponent,
+        PersonnelComponent,
+        FamilleComponent
     ],
     imports: [
         AppRoutingModule,
