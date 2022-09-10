@@ -1,4 +1,7 @@
+import { Famille } from "../famille/famille";
+import { Details } from "../rh/details/details";
 import { Service } from "../services/service";
+import { Statut } from "../statut/statut";
 
 export class Employe {
     public id_employe !: number;
@@ -13,4 +16,7 @@ export class Employe {
     public cin !: string;
     public photo !: string;
     public service !: Service;
+    public famille !: Famille;
+    public statut !: Statut;
+    public detailsRH !: Details;
 }

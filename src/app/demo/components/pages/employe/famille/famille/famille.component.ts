@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Employe } from 'src/app/models/employees/employe';
+import { Famille } from 'src/app/models/famille/famille';
+import { EmployesServiceService } from 'src/app/service/employes/employes-service.service';
 
 @Component({
   selector: 'app-famille',
@@ -7,15 +10,43 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FamilleComponent implements OnInit {
 
+    employe:Employe = JSON.parse(localStorage.getItem('employe')!);
+
+    bool!:boolean;
+
     situation = [
-        { name: 'Célibataire', code: 'Option 1' },
-        { name: 'Marié', code: 'Option 2' },
-        { name: 'Divorcé', code: 'Option 2' }
+        { label: 'Célibataire', value: 'C' },
+        { label: 'Marié', value: 'M' },
+        { label: 'Divorcé', value: 'D' }
     ];
 
-  constructor() { }
+  constructor(private employeService : EmployesServiceService) { }
 
   ngOnInit(): void {
+    if(this.employe.famille==null){
+        this.employe.famille = new Famille();
+    }
+    this.bool = this.employe.famille.situation == 'C' ? true : false;
+  }
+
+  change(){
+    if(this.employe.famille.situation == 'C'){
+        this.employe.famille = new Famille();
+        this.bool = true;
+    }else{
+        this.bool = false;
+    }
+  }
+
+  save(){
+    console.log(this.employe)
+    this.employeService.edit(this.employe).subscribe(data=>{
+        alert("Les informations bien enregistre")
+        this.employe=data;
+        localStorage.setItem('employe', JSON.stringify(this.employe))
+    },err=>{
+        alert("Erroor")
+    })
   }
 
 }

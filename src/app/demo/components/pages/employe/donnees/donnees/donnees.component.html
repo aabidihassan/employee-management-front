@@ -1,0 +1,39 @@
+<div class="card mt-4">
+    <h5>Informations Personnel</h5>
+    <div class="p-fluid p-formgrid grid">
+        <div class="field col-12">
+            <label htmlFor="nom">Date d'embauche</label>
+            <input pInputText id="embauche" type="date" [(ngModel)]="employe.detailsRH.date_embauche" />
+        </div>
+        <div class="field col-12">
+            <label htmlFor="situation">Type de Contrat</label>
+            <p-dropdown [options]="contrats" [(ngModel)]="employe.detailsRH.type_contrat" placeholder="Choisir un type"></p-dropdown>
+        </div>
+        <div class="field col-12">
+            <label htmlFor="prenom">N° CNSS</label>
+            <input pInputText id="cnss" type="text" [(ngModel)]="employe.detailsRH.num_cnss" />
+        </div>
+        <div class="field col-12 md:col-6">
+            <label htmlFor="prenom">N° RIP</label>
+            <input pInputText id="rip" type="text" [(ngModel)]="employe.detailsRH.rip" />
+        </div>
+        <div class="field col-12 md:col-6">
+            <label htmlFor="prenom">Nom du Banque</label>
+            <input pInputText id="banque" type="text" [(ngModel)]="employe.detailsRH.banque" />
+        </div>
+        <div class="field col-12">
+            <label htmlFor="recruteur" class="mb-2">Recruteur?</label>
+            <div class="formgrid grid">
+                <div class="field-radiobutton col-6">
+                    <p-radioButton id="category1" name="recruteur" [value]=true [(ngModel)]="employe.detailsRH.recruteur"></p-radioButton>
+                    <label for="category1">Oui</label>
+                </div>
+                <div class="field-radiobutton col-6">
+                    <p-radioButton id="category2" name="recruteur" [value]=false [(ngModel)]="employe.detailsRH.recruteur"></p-radioButton>
+                    <label for="category2">Non</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button pButton pRipple label="Enregistrer" (click)="save()" class="p-button-secondary col-12 mt-2"></button>
+</div>

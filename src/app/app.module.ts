@@ -34,6 +34,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ContactComponent } from './demo/components/pages/employe/contact/contact/contact.component';
 import { PersonnelComponent } from './demo/components/pages/employe/personnel/personnel/personnel.component';
 import { FamilleComponent } from './demo/components/pages/employe/famille/famille/famille.component';
+import { DonneesComponent } from './demo/components/pages/employe/donnees/donnees/donnees.component';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,8 @@ import { FamilleComponent } from './demo/components/pages/employe/famille/famill
         ServiceAppComponent,
         ContactComponent,
         PersonnelComponent,
-        FamilleComponent
+        FamilleComponent,
+        DonneesComponent
     ],
     imports: [
         AppRoutingModule,
@@ -64,7 +66,7 @@ import { FamilleComponent } from './demo/components/pages/employe/famille/famill
         DropdownModule,
         RadioButtonModule,
         InputNumberModule,
-        DialogModule
+        DialogModule,
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

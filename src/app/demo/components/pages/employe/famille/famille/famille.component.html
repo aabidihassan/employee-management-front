@@ -3,19 +3,16 @@
     <div class="p-fluid p-formgrid grid mt-2">
         <div class="field col-12">
             <label htmlFor="situation">Situation Familiale</label>
-            <p-dropdown [options]="situation" optionLabel="name"></p-dropdown>
+            <p-dropdown [options]="situation" (onChange)="change()" [(ngModel)]="employe.famille.situation" placeholder="Choisir une situation"></p-dropdown>
         </div>
         <div class="field col-12 md:col-6">
             <label htmlFor="nb_enfant">Nombre d'enfants</label>
-            <input pInputText id="nb_enfant" type="text" />
+            <input pInputText id="nb_enfant" type="text" [(ngModel)]="employe.famille.nb_enfants" [disabled]="bool" />
         </div>
         <div class="field col-12 md:col-6">
             <label htmlFor="prenom">Enfants adult</label>
-            <input pInputText id="prenom" type="text" />
-        </div>
-        <div class="field col-12">
-            <label htmlFor="naissance">Telephone</label>
-            <input pInputTextarea id="naissance" rows="4" />
+            <input pInputText id="prenom" type="number" [(ngModel)]="employe.famille.nb_enfants_adult" [disabled]="bool" />
         </div>
     </div>
+    <button pButton pRipple label="Enregistrer" (click)="save()" class="p-button-secondary col-12 mt-2"></button>
 </div>

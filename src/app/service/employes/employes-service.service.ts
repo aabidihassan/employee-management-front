@@ -28,4 +28,8 @@ export class EmployesServiceService {
   public getById(id:number):Observable<any>{
     return this.http.get(this.url+id);
   }
+
+  public edit(employe:Employe):Observable<any>{
+    return this.http.post(this.url+"edit", employe);
+  }
 }

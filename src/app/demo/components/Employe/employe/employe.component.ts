@@ -34,17 +34,17 @@ export class EmployeComponent implements OnInit {
                     items: [
                         {
                             label: 'Personnel',
-                            icon: 'pi pi-fw pi-plus',
-                            routerLink: ''
+                            icon: 'pi pi-fw pi-id-card',
+                            routerLink: 'personnel'
                         },
                         {
                             label: 'Contact',
-                            icon: 'pi pi-fw pi-copy',
+                            icon: 'pi pi-fw pi-phone',
                             routerLink: 'contact'
                         },
                         {
                             label: 'Familial',
-                            icon: 'pi pi-fw pi-copy',
+                            icon: 'pi pi-fw pi-users',
                             routerLink: 'famille'
                         },
 
@@ -59,11 +59,12 @@ export class EmployeComponent implements OnInit {
             items: [
                 {
                     label: 'Données',
-                    icon: 'pi pi-fw pi-plus'
+                    icon: 'pi pi-fw pi-info-circle',
+                    routerLink: 'donnees'
                 },
                 {
                     label: 'Fonction',
-                    icon: 'pi pi-fw pi-copy'
+                    icon: 'pi pi-fw pi-shopping-bag'
                 },
 
             ]
@@ -78,12 +79,23 @@ export class EmployeComponent implements OnInit {
             label: 'Congé',
             icon: 'pi pi-fw pi-sign-out',
         },
+        { separator: true },
+        {
+            label: 'Acces',
+            icon: 'pi pi-fw pi-history',
+        },
     ];
+
+    localStorage.setItem('employe', JSON.stringify(this.employe))
 
   }
 
   pass(component:any){
     component.employe = this.employe;
+  }
+
+  ngOnDestroy(){
+    localStorage.removeItem('employe')
   }
 
 }

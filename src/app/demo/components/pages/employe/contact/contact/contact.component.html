@@ -3,11 +3,12 @@
     <div class="p-fluid p-formgrid grid mt-2">
         <div class="field col-12">
             <label htmlFor="naissance">Telephone</label>
-            <input pInputTextarea id="naissance" rows="4" />
+            <input pInputTextarea id="naissance" rows="4" [(ngModel)]="employe.telephone" />
         </div>
         <div class="field col-12">
             <label htmlFor="email">E-Mail</label>
-            <input pInputTextarea id="email" type="email" rows="4" />
+            <input pInputTextarea id="email" type="email" rows="4" [(ngModel)]="employe.email" />
         </div>
     </div>
+    <button pButton pRipple label="Enregistrer" (click)="save()" class="p-button-secondary col-12 mt-2"></button>
 </div>
