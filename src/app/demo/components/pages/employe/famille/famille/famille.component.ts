@@ -32,6 +32,7 @@ export class FamilleComponent implements OnInit {
   change(){
     if(this.employe.famille.situation == 'C'){
         this.employe.famille = new Famille();
+        this.employe.famille.situation = 'C';
         this.bool = true;
     }else{
         this.bool = false;

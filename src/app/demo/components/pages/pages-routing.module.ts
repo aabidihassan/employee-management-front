@@ -4,6 +4,7 @@ import { EmployeComponent } from '../Employe/employe/employe.component';
 import { ContactComponent } from './employe/contact/contact/contact.component';
 import { DonneesComponent } from './employe/donnees/donnees/donnees.component';
 import { FamilleComponent } from './employe/famille/famille/famille.component';
+import { FonctionComponent } from './employe/fonction/fonction/fonction.component';
 import { PersonnelComponent } from './employe/personnel/personnel/personnel.component';
 
 @NgModule({
@@ -16,7 +17,8 @@ import { PersonnelComponent } from './employe/personnel/personnel/personnel.comp
             { path: 'contact', component: ContactComponent },
             { path: 'famille', component: FamilleComponent },
             { path: 'personnel', component: PersonnelComponent },
-            { path: 'donnees', component: DonneesComponent }
+            { path: 'donnees', component: DonneesComponent },
+            { path: 'fonction', component: FonctionComponent }
         ] }
     ])],
     exports: [RouterModule]

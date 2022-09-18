@@ -18,14 +18,24 @@ export class DonneesComponent implements OnInit {
         'ANAPEC',
         'FREELANCE'
     ]
+    bool !: boolean;
 
   constructor(private employeService : EmployesServiceService) { }
 
   ngOnInit(): void {
     if(this.employe.detailsRH==null) this.employe.detailsRH = new Details();
+    this.bool = this.employe.detailsRH.type_contrat=='ANAPEC'? true : false;
+  }
+
+  change(){
+    if(this.employe.detailsRH.type_contrat == 'ANAPEC'){
+        this.bool = true;
+        this.employe.detailsRH.num_cnss = '';
+    }else   this.bool = false;
   }
 
   save(){
+    alert("Attendez s'il vous plaît ...")
     this.employeService.edit(this.employe).subscribe(data=>{
         this.employe=data;
         localStorage.setItem('employe', JSON.stringify(this.employe))

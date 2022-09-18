@@ -35,6 +35,7 @@ import { ContactComponent } from './demo/components/pages/employe/contact/contac
 import { PersonnelComponent } from './demo/components/pages/employe/personnel/personnel/personnel.component';
 import { FamilleComponent } from './demo/components/pages/employe/famille/famille/famille.component';
 import { DonneesComponent } from './demo/components/pages/employe/donnees/donnees/donnees.component';
+import { FonctionComponent } from './demo/components/pages/employe/fonction/fonction/fonction.component';
 
 @NgModule({
     declarations: [
@@ -45,7 +46,8 @@ import { DonneesComponent } from './demo/components/pages/employe/donnees/donnee
         ContactComponent,
         PersonnelComponent,
         FamilleComponent,
-        DonneesComponent
+        DonneesComponent,
+        FonctionComponent
     ],
     imports: [
         AppRoutingModule,

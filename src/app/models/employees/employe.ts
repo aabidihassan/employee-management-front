@@ -2,6 +2,7 @@ import { Famille } from "../famille/famille";
 import { Details } from "../rh/details/details";
 import { Service } from "../services/service";
 import { Statut } from "../statut/statut";
+import { Utilisateur } from "../utilisateur/utilisateur";
 
 export class Employe {
     public id_employe !: number;
@@ -19,4 +20,5 @@ export class Employe {
     public famille !: Famille;
     public statut !: Statut;
     public detailsRH !: Details;
+    public user !: Utilisateur;
 }

@@ -1478,15 +1478,6 @@ p-password.ng-invalid.ng-dirty > .p-password > .p-inputtext {
   margin-bottom: 0.5rem;
   background: #304562;
 }
-.p-password-panel .p-password-meter .p-password-strength.weak {
-  background: #F48FB1;
-}
-.p-password-panel .p-password-meter .p-password-strength.medium {
-  background: #FFE082;
-}
-.p-password-panel .p-password-meter .p-password-strength.strong {
-  background: #C5E1A5;
-}
 
 p-password.p-password-clearable .p-password-input {
   padding-right: 2rem;

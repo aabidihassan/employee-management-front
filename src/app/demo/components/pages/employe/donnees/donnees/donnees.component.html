@@ -2,14 +2,14 @@
     <h5>Informations Personnel</h5>
     <div class="p-fluid p-formgrid grid">
         <div class="field col-12">
-            <label htmlFor="nom">Date d'embauche</label>
-            <input pInputText id="embauche" type="date" [(ngModel)]="employe.detailsRH.date_embauche" />
+            <label htmlFor="date_embauche">Date d'embauche</label>
+            <input pInputTextarea id="date_embauche" type="date" [(ngModel)]="employe.detailsRH.date_embauche" placeholder="YYYY-MM-DD" />
         </div>
         <div class="field col-12">
             <label htmlFor="situation">Type de Contrat</label>
-            <p-dropdown [options]="contrats" [(ngModel)]="employe.detailsRH.type_contrat" placeholder="Choisir un type"></p-dropdown>
+            <p-dropdown [options]="contrats" (onChange)="change()" [(ngModel)]="employe.detailsRH.type_contrat" placeholder="Choisir un type"></p-dropdown>
         </div>
-        <div class="field col-12">
+        <div class="field col-12" [hidden]="bool">
             <label htmlFor="prenom">N° CNSS</label>
             <input pInputText id="cnss" type="text" [(ngModel)]="employe.detailsRH.num_cnss" />
         </div>
