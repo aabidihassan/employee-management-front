@@ -1,120 +1,88 @@
-<div class="grid">
-    <div class="col-12">
-        <div class="card px-6 py-6">
-            <p-toast></p-toast>
-            <p-toolbar styleClass="mb-4">
-                <ng-template pTemplate="left">
-                    <div class="my-2">
-                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-                        <!-- <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button> -->
-                    </div>
-                </ng-template>
-
-                <ng-template pTemplate="right">
-                    <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
-                    <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
-                </ng-template>
-            </p-toolbar>
-
-            <p-table #dt [value]="services" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['id_service','nom_service']" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedProducts" selectionMode="multiple" [rowHover]="true" dataKey="id">
-                <ng-template pTemplate="caption">
-                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                        <h5 class="m-0">Manage Services</h5>
-                        <span class="block mt-2 md:mt-0 p-input-icon-left">
-                            <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
-                        </span>
-                    </div>
-                </ng-template>
-                <ng-template pTemplate="header">
-                    <tr>
-                        <!-- <th style="width: 3rem">
-                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th> -->
-                        <th pSortableColumn="id_service">ID <p-sortIcon field="id_service"></p-sortIcon></th>
-                        <th pSortableColumn="nom_service">Nom de Service <p-sortIcon field="nom_service"></p-sortIcon></th>
-                        <!-- <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th> -->
-                        <!-- <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th> -->
-                        <th></th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-service>
-                    <tr>
-                        <!-- <td>
-                            <p-tableCheckbox [value]="employe"></p-tableCheckbox>
-                        </td> -->
-                        <td style="width:30%; min-width:10rem;"><span class="p-column-title">ID</span>
-                            {{service.id_service}}
-                        </td>
-                        <td style="width:50%; min-width:10rem;">
-                            <span class="p-column-title">Nom de Service</span>
-                            {{service.nom_service}}
-                        </td>
-                        <!-- <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Reviews</span>
-                            <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
-                        </td>
-                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Status</span>
-                            <span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span>
-                        </td> -->
-                        <td>
-                            <div class="flex">
-                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2" (click)="editProduct(service)"></button>
-                                <!-- <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2" (click)="deleteProduct(employe)"></button> -->
-                                <!-- <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-primary" (click)="viewEmploye(employe)"></button> -->
-                            </div>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-
-        <p-dialog [(visible)]="productDialog" [style]="{width: '600px'}" header="Details de Service" [modal]="true" class="p-fluid">
-            <ng-template pTemplate="content">
-                <div class="field">
-                    <label for="name">Nom De Service</label>
-                    <input type="text" pInputText id="nom_service" [(ngModel)]="service.nom_service" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !service.nom_service}"/>
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !service.nom_service">Nom is required.</small>
+<div class="col-12">
+    <div class="card">
+        <h5>Liste des services</h5>
+        <p-toast></p-toast>
+        <p-table [value]="services" dataKey="nom_service" [expandedRowKeys]="expandedRows" responsiveLayout="scroll">
+            <ng-template pTemplate="caption">
+                <button pButton icon="pi pi-fw {{isExpanded ? 'pi-minus' : 'pi-plus'}}" label="{{isExpanded ? 'Cacher les fonctions' : 'Voir tous les fonctions'}}" (click)="expandAll()"></button>
+                <button pButton pRipple label="Ajouter un service" style="margin-left: 1%;" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+                <div class="flex table-header">
                 </div>
-
-                <!-- <div class="field">
-                    <label for="status">Inventory Status</label>
-                    <p-dropdown id="status" [options]="statuses" optionLabel="label" [(ngModel)]="product.inventoryStatus" placeholder="Select a Status">
-                        <ng-template pTemplate="selectedItem">
-                            <span *ngIf="product && product.inventoryStatus" [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
-                        </ng-template>
-                        <ng-template let-status pTemplate="status">
-                            <span [class]="'product-badge status-' + status.value.toLowerCase()">{{status.label}}</span>
-                        </ng-template>
-                    </p-dropdown>
-                </div> -->
             </ng-template>
-
-            <ng-template pTemplate="footer">
-                <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-                <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 1rem"></th>
+                    <th pSortableColumn="nom_service">Nom de service <p-sortIcon field="nom_service"></p-sortIcon></th>
+                </tr>
             </ng-template>
-        </p-dialog>
-
-        <p-dialog [(visible)]="deleteProductDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
-            <div class="flex align-items-center justify-content-center">
-                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="product">Are you sure you want to delete <b>{{product.name}}</b>?</span>
-            </div>
-            <ng-template pTemplate="footer">
-                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteProductDialog = false"></button>
-                <!-- <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete()"></button> -->
+            <ng-template pTemplate="body" let-product let-expanded="expanded">
+                <tr>
+                    <td>
+                        <button type="button" pButton pRipple [pRowToggler]="product" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                    </td>
+                    <td style="min-width: 12rem;">{{product.nom_service}}</td>
+                </tr>
             </ng-template>
-        </p-dialog>
+            <ng-template pTemplate="rowexpansion" let-product>
+                <tr>
+                    <td colspan="7">
+                        <div class="p-3">
+                            <p-table [value]="product.fonctions" dataKey="poste" responsiveLayout="scroll">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <button pButton pRipple label="Ajouter fonction" style="margin-bottom: 1%;" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNewFonction(product)"></button>
+                                    </tr>
 
-        <p-dialog [(visible)]="deleteProductsDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
-            <div class="flex align-items-center justify-content-center">
-                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span>Are you sure you want to delete selected products?</span>
-            </div>
-            <ng-template pTemplate="footer">
-                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteProductsDialog = false"></button>
-                <!-- <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDeleteSelected()"></button> -->
+                <tr>
+                    <th pSortableColumn="poste">Fonction <p-sortIcon field="poste"></p-sortIcon></th>
+                </tr>
             </ng-template>
-        </p-dialog>
+            <ng-template pTemplate="body" let-order>
+                <tr>
+                    <td>{{order.poste}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="6">There are no order for this product yet.</td>
+                </tr>
+            </ng-template>
+        </p-table>
     </div>
+    </td>
+    </tr>
+    </ng-template>
+    </p-table>
 </div>
+</div>
+
+<p-dialog [(visible)]="productDialog" [style]="{width: '600px'}" header="Details de Service" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="name">Nom De Service</label>
+            <input type="text" pInputText id="nom_service" [(ngModel)]="service.nom_service" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !service.nom_service}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !service.nom_service">Nom is required.</small>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="fonctionDialog" [style]="{width: '600px'}" header="Details de fonction" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="name">Nom de fonction</label>
+            <input type="text" pInputText id="poste" [(ngModel)]="fonction.poste" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !fonction.poste}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !fonction.poste">Nom is required.</small>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveFonction()"></button>
+    </ng-template>
+</p-dialog>
+

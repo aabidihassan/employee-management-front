@@ -33,6 +33,12 @@ export class LoginComponent implements OnInit{
     user : Utilisateur = new Utilisateur();
     token : Token = new Token();
 
+    situation = [
+        { label: 'Célibataire', value: 'C' },
+        { label: 'Marié', value: 'M' },
+        { label: 'Divorcé', value: 'D' }
+    ];
+
     constructor(public layoutService: LayoutService, private authService : AccountsService, private router : Router) { }
 
     ngOnInit() {

@@ -28,15 +28,7 @@
             </div>
             <div class="field col-12">
                 <label htmlFor="status">Statut</label>
-                <p-dropdown [options]="statuts" optionLabel="statut_libelle" [(ngModel)]="employe.statut"></p-dropdown>
-                <!-- <p-dropdown id="statut" [options]="statuts" optionLabel="statut_libelle" [(ngModel)]="employe.statut">
-                    <ng-template pTemplate="selectedItem">
-                        <span *ngIf="employe && employe.statut" [class]="'employe-badge status-' + employe.statut.statut_libelle">{{employe.statut.statut_libelle}}</span>
-                    </ng-template>
-                    <ng-template let-statut pTemplate="statut">
-                        <span [class]="'product-badge status-' + statut.statut_libelle">{{statut.statut_libelle}}</span>
-                    </ng-template>
-                </p-dropdown> -->
+                <p-dropdown [options]="statuts" optionLabel="statut_libelle" dataKey="statut_libelle" [(ngModel)]="employe.statut" placeholder="Choisir statut"></p-dropdown>
             </div>
             <div class="field col-12">
                 <label htmlFor="sex" class="mb-2">Genre</label>

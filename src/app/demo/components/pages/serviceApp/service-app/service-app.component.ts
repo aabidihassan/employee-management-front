@@ -8,6 +8,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Employe } from 'src/app/models/employees/employe';
 import { Service } from 'src/app/models/services/service';
 import { ServiceAppService } from 'src/app/service/servicesApp/service-app.service';
+import { Fonction } from 'src/app/models/fonction/fonction';
+import { FonctionService } from 'src/app/service/fonction/fonction.service';
+
+
+interface expandedRows {
+    [key: string]: boolean;
+}
 
 @Component({
   selector: 'app-service-app',
@@ -15,13 +22,18 @@ import { ServiceAppService } from 'src/app/service/servicesApp/service-app.servi
   styleUrls: ['./service-app.component.scss'],
   providers: [MessageService]
 })
+
 export class ServiceAppComponent implements OnInit {
+
+    expandedRows: expandedRows = {};
+
+    isExpanded: boolean = false;
 
     productDialog: boolean = false;
 
-    deleteProductDialog: boolean = false;
+    fonctionDialog: boolean = false;
 
-    deleteProductsDialog: boolean = false;
+    fonction : Fonction = new Fonction();
 
     services: Service[] = [];
 
@@ -29,17 +41,10 @@ export class ServiceAppComponent implements OnInit {
 
     product: Product = {};
 
-    selectedProducts: Product[] = [];
-
     submitted: boolean = false;
 
-    cols: any[] = [];
 
-    statuses: any[] = [];
-
-    rowsPerPageOptions = [5, 10, 20];
-
-    constructor(private messageService: MessageService, private serviceApp : ServiceAppService, private router : Router) { }
+    constructor(private serviceApp : ServiceAppService, private router : Router, private fonctionService : FonctionService) { }
 
     ngOnInit() {
 
@@ -49,13 +54,17 @@ export class ServiceAppComponent implements OnInit {
         },err=>{
             this.router.navigate(['/']);
         })
-        //this.productService.getProducts().then(data => this.products = data);
 
-        this.statuses = [
-            { label: 'INSTOCK', value: 'instock' },
-            { label: 'LOWSTOCK', value: 'lowstock' },
-            { label: 'OUTOFSTOCK', value: 'outofstock' }
-        ];
+    }
+
+    expandAll() {
+        if (!this.isExpanded) {
+            this.services.forEach(product => product && product.nom_service ? this.expandedRows[product.nom_service] = true : '');
+
+        } else {
+            this.expandedRows = {};
+        }
+        this.isExpanded = !this.isExpanded;
     }
 
     openNew() {
@@ -64,53 +73,28 @@ export class ServiceAppComponent implements OnInit {
         this.productDialog = true;
     }
 
-    deleteSelectedProducts() {
-        this.deleteProductsDialog = true;
+    openNewFonction(service: Service){
+        this.fonction = new Fonction();
+        this.fonction.service = service;
+        this.submitted = false;
+        this.fonctionDialog = true;
     }
 
-    editProduct(service: Service) {
-        this.service = { ...service };
-        this.productDialog = true;
+    saveFonction(){
+        this.submitted = true;
+        this.fonctionService.save(this.fonction).subscribe(data=>{
+            this.fonctionDialog = false;
+            this.fonction = new Fonction();
+            this.ngOnInit();
+        },err=>{
+            alert("Error, try again");
+        })
     }
-
-    // deleteProduct(employe: Employe) {
-    //     //this.deleteProductDialog = true;
-    //     //this.employesService.delete(employe.id_employe)
-    //     //this.employe = { ...employe };
-    //     this.serviceApp.delete(employe.id_employe).subscribe(data=>{
-    //         this.ngOnInit();
-    //     },err=>{
-    //         alert("Error, try again")
-    //     })
-    // }
-
-    // confirmDeleteSelected() {
-    //     this.deleteProductsDialog = false;
-    //     //this.employes = this.employes.filter(val => !this.selectedProducts.includes(val));
-    //     this.employesService.delete(this.employe.id_employe).subscribe(data=>{
-    //         this.ngOnInit();
-    //     },err=>{
-    //         alert("Error, try again")
-    //     })
-    //     this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
-    //     //this.selectedProducts = [];
-    // }
-
-    // confirmDelete() {
-    //     this.deleteProductDialog = false;
-    //     // this.employes = this.employes.filter(val => val.id_employe !== this.employe.id_employe);
-    //     this.employesService.delete(this.employe.id_employe).subscribe(data=>{
-    //         this.ngOnInit();
-    //     },err=>{
-    //         alert("Error, try again")
-    //     })
-    //     this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-    //     this.employe = new Employe();
-    // }
 
     hideDialog() {
         this.productDialog = false;
         this.submitted = false;
+        this.fonctionDialog = false
     }
 
     saveProduct() {
@@ -122,49 +106,5 @@ export class ServiceAppComponent implements OnInit {
         },err=>{
             alert("Error, try again")
         })
-
-        //this.employesService.save()
-
-        // if (this.product.name?.trim()) {
-        //     if (this.product.id) {
-        //         // @ts-ignore
-        //         this.product.inventoryStatus = this.product.inventoryStatus.value ? this.product.inventoryStatus.value : this.product.inventoryStatus;
-        //         this.products[this.findIndexById(this.product.id)] = this.product;
-        //         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
-        //     } else {
-        //         this.product.id = this.createId();
-        //         this.product.code = this.createId();
-        //         this.product.image = 'product-placeholder.svg';
-        //         // @ts-ignore
-        //         this.product.inventoryStatus = this.product.inventoryStatus ? this.product.inventoryStatus.value : 'INSTOCK';
-        //         this.products.push(this.product);
-        //         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
-        //     }
-
-        //     this.products = [...this.products];
-        //     this.productDialog = false;
-        //     this.product = {};
-        // }
     }
-
-    // findIndexById(id: string): number {
-    //     let index = -1;
-    //     for (let i = 0; i < this.products.length; i++) {
-    //         if (this.products[i].id === id) {
-    //             index = i;
-    //             break;
-    //         }
-    //     }
-
-    //     return index;
-    // }
-
-    onGlobalFilter(table: Table, event: Event) {
-        table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
-    }
-
-    viewEmploye(employe : Employe){
-        this.router.navigate(['employes/'+employe.id_employe])
-    }
-
 }

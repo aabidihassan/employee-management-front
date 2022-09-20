@@ -1,1 +1,15 @@
-<p>fonction works!</p>
+<div class="card mt-4">
+    <h5>Service et Fonction</h5>
+        <div class="p-fluid p-formgrid grid mt-2">
+            <div class="field col-12">
+                <label for="status">Service</label>
+                <p-dropdown id="service" (onChange)="change()" [options]="services" dataKey="nom_service" optionLabel="nom_service" [(ngModel)]="service" placeholder="Choisir un service"></p-dropdown>
+            </div>
+
+            <div class="field col-12">
+                <label for="status">Fonction</label>
+                <p-dropdown id="fonction" [options]="fonctions" optionLabel="poste" dataKey="poste" [(ngModel)]="employe.fonction" placeholder="Choisir une fonction"></p-dropdown>
+            </div>
+        </div>
+    <button pButton pRipple label="Enregistrer" (click)="save()" class="p-button-secondary col-12 mt-2"></button>
+</div>
