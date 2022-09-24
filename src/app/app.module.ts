@@ -68,7 +68,7 @@ import { FonctionComponent } from './demo/components/pages/employe/fonction/fonc
         DropdownModule,
         RadioButtonModule,
         InputNumberModule,
-        DialogModule,
+        DialogModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

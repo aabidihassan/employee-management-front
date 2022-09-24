@@ -67,16 +67,18 @@ export class EmployeComponent implements OnInit {
                     {
                         label: 'Education',
                         icon: 'pi pi-fw pi-book',
-                        routerLink: 'donnees',
+                        routerLink: 'cv/educations',
                     },
                     {
                         label: 'Stage',
                         icon: 'pi pi-fw pi-envelope',
+                        routerLink: 'cv/stages'
                     },
 
                     {
                         label: 'Professionnel',
                         icon: 'pi pi-fw pi-briefcase',
+                        routerLink: 'cv/professionnels'
                     },
                 ],
             },

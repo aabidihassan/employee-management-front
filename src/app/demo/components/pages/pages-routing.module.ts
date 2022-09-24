@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EmployeComponent } from '../Employe/employe/employe.component';
+import { EducationComponent } from './employe/champs_cv/champs/education/education/education.component';
+import { ProfessionnelComponent } from './employe/champs_cv/champs/professionnel/professionnel/professionnel.component';
+import { StageComponent } from './employe/champs_cv/champs/stage/stage/stage.component';
 import { ContactComponent } from './employe/contact/contact/contact.component';
 import { DonneesComponent } from './employe/donnees/donnees/donnees.component';
 import { FamilleComponent } from './employe/famille/famille/famille.component';
@@ -18,7 +21,12 @@ import { PersonnelComponent } from './employe/personnel/personnel/personnel.comp
             { path: 'famille', component: FamilleComponent },
             { path: 'personnel', component: PersonnelComponent },
             { path: 'donnees', component: DonneesComponent },
-            { path: 'fonction', component: FonctionComponent }
+            { path: 'fonction', component: FonctionComponent },
+            { path: 'cv', children: [
+                { path: 'educations', component: EducationComponent },
+                { path: 'professionnels', component: ProfessionnelComponent },
+                { path: 'stages', component: StageComponent },
+            ] },
         ] }
     ])],
     exports: [RouterModule]
