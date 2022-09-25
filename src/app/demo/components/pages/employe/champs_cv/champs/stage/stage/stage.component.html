@@ -1,11 +1,11 @@
 <div class="card mt-4">
     <h5>Liste des Stages</h5>
     <p-table #dt1 [value]="customers1" dataKey="id" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
-        [paginator]="true" [globalFilterFields]="['date_debut','date_fin','description','filiere', 'diplome']"
+        [paginator]="true" [globalFilterFields]="['date_debut','date_fin','description','entreprise', 'sujet']"
         responsiveLayout="scroll">
         <ng-template pTemplate="caption">
             <div class="flex justify-content-between flex-column sm:flex-row">
-                <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"
+                <button pButton label="Ajouter" class="p-button-success mb-2" icon="pi pi-plus"
                     (click)="openNew()"></button>
                 <span class="p-input-icon-left mb-2">
                     <i class="pi pi-search"></i>
@@ -38,12 +38,12 @@
                 </th>
                 <th>
                     <div class="flex justify-content-between align-items-center">
-                        Filiere
+                        Entreprise
                     </div>
                 </th>
                 <th>
                     <div class="flex justify-content-between align-items-center">
-                        Diplome
+                        Sujet
                     </div>
                 </th>
             </tr>
@@ -63,16 +63,16 @@
                     {{customer.attestation}}
                 </td>
                 <td style="min-width: 12rem;">
-                    {{customer.filiere}}
+                    {{customer.entreprise}}
                 </td>
                 <td style="min-width: 12rem; ">
-                    {{customer.diplome}}
+                    {{customer.sujet}}
                 </td>
             </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">
             <tr>
-                <td colspan="7">No customers found.</td>
+                <td colspan="7">Aucun stage trouvee.</td>
             </tr>
         </ng-template>
         <ng-template pTemplate="loadingbody">
@@ -82,3 +82,43 @@
         </ng-template>
     </p-table>
 </div>
+
+
+
+<p-dialog [(visible)]="productDialog" [style]="{width: '600px'}" header="Details de dtage" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="date_debut">Date Debut</label>
+            <input type="date" pInputText id="date_debut" [(ngModel)]="stage.date_debut" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !stage.date_debut}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !stage.date_debut">Inserer une date debut.</small>
+        </div>
+        <div class="field">
+            <label for="date_fin">Date Fin</label>
+            <input type="date" pInputText id="date_fin" [(ngModel)]="stage.date_fin" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !stage.date_fin}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !stage.date_fin">Inserer une date de fin.</small>
+        </div>
+        <div class="field">
+            <label for="description">Description</label>
+            <textarea id="description" pInputTextarea [(ngModel)]="stage.description" required rows="2" cols="20"></textarea>
+        </div>
+        <div class="field">
+            <label for="entreprise">Entreprise</label>
+            <input type="text" pInputText id="entreprise" [(ngModel)]="stage.entreprise" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !stage.entreprise}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !stage.entreprise">Entrer l'entreprise.</small>
+        </div>
+        <div class="field">
+            <label for="sujet">Sujet</label>
+            <input type="text" pInputText id="sujet" [(ngModel)]="stage.sujet" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !stage.sujet}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !stage.sujet">Entrer le sujet.</small>
+        </div>
+        <div class="field">
+            <label for="name">Attestation</label>
+            <input type="file" accept="file/*" pInputText id="attestation" [(ngModel)]="stage.attestation" autofocus />
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="save()"></button>
+    </ng-template>
+</p-dialog>

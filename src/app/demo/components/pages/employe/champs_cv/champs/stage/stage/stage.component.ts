@@ -13,7 +13,9 @@ export class StageComponent implements OnInit {
 
     employe:Employe = JSON.parse(localStorage.getItem('employe')!);
     customers1: Stage[] = [];
-    loading: boolean = true;
+    stage : Stage = new Stage();
+    submitted: boolean = false;
+    productDialog: boolean = false;
 
   constructor(private stageService : StageService) { }
 
@@ -30,6 +32,27 @@ export class StageComponent implements OnInit {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
 }
 
-openNew(){}
+openNew(){
+    this.stage = new Stage();
+    this.submitted = false;
+    this.productDialog = true;
+}
+
+hideDialog() {
+    this.productDialog = false;
+    this.submitted = false;
+}
+
+save(){
+    this.submitted = true;
+    this.stage.employe = this.employe;
+    this.stageService.save(this.stage).subscribe(data=>{
+        this.productDialog = false;
+        this.stage = new Stage();
+        this.ngOnInit();
+    },err=>{
+        alert("Error, try again")
+    })
+}
 
 }

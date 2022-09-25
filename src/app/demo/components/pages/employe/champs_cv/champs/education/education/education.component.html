@@ -5,12 +5,12 @@
         responsiveLayout="scroll">
         <ng-template pTemplate="caption">
             <div class="flex justify-content-between flex-column sm:flex-row">
-                <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"
+                <button pButton label="Ajouter" class="p-button-success mb-2" icon="pi pi-plus"
                     (click)="openNew()"></button>
                 <span class="p-input-icon-left mb-2">
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" #filter (input)="onGlobalFilter(dt1, $event)"
-                        placeholder="Search Keyword" class="w-full" />
+                        placeholder="Chercher" class="w-full" />
                 </span>
             </div>
         </ng-template>
@@ -72,13 +72,50 @@
         </ng-template>
         <ng-template pTemplate="emptymessage">
             <tr>
-                <td colspan="7">No customers found.</td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="loadingbody">
-            <tr>
-                <td colspan="7">Loading customers data. Please wait.</td>
+                <td colspan="7">Aucun education est trouvee.</td>
             </tr>
         </ng-template>
     </p-table>
 </div>
+
+
+
+
+
+<p-dialog [(visible)]="productDialog" [style]="{width: '600px'}" header="Details de l'education" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="date_debut">Date Debut</label>
+            <input type="date" pInputText id="date_debut" [(ngModel)]="education.date_debut" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !education.date_debut}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !education.date_debut">Inserer une date debut.</small>
+        </div>
+        <div class="field">
+            <label for="date_fin">Date Fin</label>
+            <input type="date" pInputText id="date_fin" [(ngModel)]="education.date_fin" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !education.date_fin}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !education.date_fin">Inserer une date de fin.</small>
+        </div>
+        <div class="field">
+            <label for="description">Description</label>
+            <textarea id="description" pInputTextarea [(ngModel)]="education.description" required rows="2" cols="20"></textarea>
+        </div>
+        <div class="field">
+            <label for="filiere">Filiere</label>
+            <input type="text" pInputText id="filiere" [(ngModel)]="education.filiere" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !education.filiere}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !education.filiere">Entrer la filiere.</small>
+        </div>
+        <div class="field">
+            <label for="diplome">Diplome</label>
+            <input type="text" pInputText id="diplome" [(ngModel)]="education.diplome" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !education.diplome}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !education.diplome">Entrer le diplome.</small>
+        </div>
+        <div class="field">
+            <label for="name">Attestation</label>
+            <input type="file" accept="file/*" pInputText id="attestation" [(ngModel)]="education.attestation" autofocus />
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="save()"></button>
+    </ng-template>
+</p-dialog>

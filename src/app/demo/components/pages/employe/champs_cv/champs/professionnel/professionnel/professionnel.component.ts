@@ -13,7 +13,9 @@ export class ProfessionnelComponent implements OnInit {
 
     employe:Employe = JSON.parse(localStorage.getItem('employe')!);
     customers1: Professionnel[] = [];
-    loading: boolean = true;
+    professionnel : Professionnel = new Professionnel();
+    submitted: boolean = false;
+    productDialog: boolean = false;
 
   constructor(private professionnelService : ProfessionnelService) { }
 
@@ -30,6 +32,27 @@ export class ProfessionnelComponent implements OnInit {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
 }
 
-openNew(){}
+openNew(){
+    this.professionnel = new Professionnel();
+    this.submitted = false;
+    this.productDialog = true;
+}
+
+hideDialog() {
+    this.productDialog = false;
+    this.submitted = false;
+}
+
+save(){
+    this.submitted = true;
+    this.professionnel.employe = this.employe;
+    this.professionnelService.save(this.professionnel).subscribe(data=>{
+        this.productDialog = false;
+        this.professionnel = new Professionnel();
+        this.ngOnInit();
+    },err=>{
+        alert("Error, try again")
+    })
+}
 
 }

@@ -9,9 +9,6 @@ import { ToolbarModule } from 'primeng/toolbar';
 
 @NgModule({
     declarations: [
-    EducationComponent,
-    ProfessionnelComponent,
-    StageComponent
   ],
     imports: [
         CommonModule,
