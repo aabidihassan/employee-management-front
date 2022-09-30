@@ -7,6 +7,7 @@ import { StageComponent } from './employe/champs_cv/champs/stage/stage/stage.com
 import { ContactComponent } from './employe/contact/contact/contact.component';
 import { DonneesComponent } from './employe/donnees/donnees/donnees.component';
 import { FamilleComponent } from './employe/famille/famille/famille.component';
+import { FichiersComponent } from './employe/fichiers/fichiers/fichiers.component';
 import { FonctionComponent } from './employe/fonction/fonction/fonction.component';
 import { PersonnelComponent } from './employe/personnel/personnel/personnel.component';
 
@@ -27,6 +28,7 @@ import { PersonnelComponent } from './employe/personnel/personnel/personnel.comp
                 { path: 'professionnels', component: ProfessionnelComponent },
                 { path: 'stages', component: StageComponent },
             ] },
+            { path: 'fichiers', component: FichiersComponent },
         ] }
     ])],
     exports: [RouterModule]

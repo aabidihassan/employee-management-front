@@ -39,6 +39,8 @@ import { FonctionComponent } from './demo/components/pages/employe/fonction/fonc
 import { EducationComponent } from './demo/components/pages/employe/champs_cv/champs/education/education/education.component';
 import { ProfessionnelComponent } from './demo/components/pages/employe/champs_cv/champs/professionnel/professionnel/professionnel.component';
 import { StageComponent } from './demo/components/pages/employe/champs_cv/champs/stage/stage/stage.component';
+import { FichiersComponent } from './demo/components/pages/employe/fichiers/fichiers/fichiers.component';
+import { ProfileComponent } from './demo/componenets/pages/profile/profile/profile.component';
 
 @NgModule({
     declarations: [
@@ -53,7 +55,9 @@ import { StageComponent } from './demo/components/pages/employe/champs_cv/champs
         FonctionComponent,
         EducationComponent,
         ProfessionnelComponent,
-        StageComponent
+        StageComponent,
+        FichiersComponent,
+        ProfileComponent
     ],
     imports: [
         AppRoutingModule,

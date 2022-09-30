@@ -86,13 +86,88 @@ export class EmployeComponent implements OnInit {
             {
                 label: 'Fichiers',
                 icon: 'pi pi-fw pi-folder-open',
-            },
-            { separator: true },
-            {
-                label: 'Acces',
-                icon: 'pi pi-fw pi-history',
+                routerLink: 'fichiers'
             },
         ];
+
+        if(this.employe.user != null){
+            this.tieredItems =this.tieredItems = [
+                {
+                    label: 'Coordonnées',
+                    icon: 'pi pi-fw pi-user',
+                    items: [
+                        {
+                            label: 'Personnel',
+                            icon: 'pi pi-fw pi-id-card',
+                            routerLink: 'personnel',
+                        },
+                        {
+                            label: 'Contact',
+                            icon: 'pi pi-fw pi-phone',
+                            routerLink: 'contact',
+                        },
+                        {
+                            label: 'Familial',
+                            icon: 'pi pi-fw pi-users',
+                            routerLink: 'famille',
+                        },
+                    ],
+                },
+                { separator: true },
+                {
+                    label: 'Détail RH',
+                    icon: 'pi pi-fw pi-server',
+                    items: [
+                        {
+                            label: 'Données',
+                            icon: 'pi pi-fw pi-info-circle',
+                            routerLink: 'donnees',
+                        },
+                        {
+                            label: 'Fonction',
+                            icon: 'pi pi-fw pi-briefcase',
+                            routerLink: 'fonction'
+                        },
+                    ],
+                },
+                { separator: true },
+                {
+                    label: 'CV',
+                    icon: 'pi pi-fw pi-id-card',
+                    items: [
+                        {
+                            label: 'Education',
+                            icon: 'pi pi-fw pi-book',
+                            routerLink: 'cv/educations',
+                        },
+                        {
+                            label: 'Stage',
+                            icon: 'pi pi-fw pi-envelope',
+                            routerLink: 'cv/stages'
+                        },
+
+                        {
+                            label: 'Professionnel',
+                            icon: 'pi pi-fw pi-briefcase',
+                            routerLink: 'cv/professionnels'
+                        },
+                    ],
+                },
+                { separator: true },
+                {
+                    label: 'Fichiers',
+                    icon: 'pi pi-fw pi-folder-open',
+                    routerLink: 'fichiers'
+                },
+                { separator: true },
+                {
+                    label: 'Compte',
+                    icon: 'pi pi-fw pi-globe',
+                },
+            ];
+
+
+        }
 
         localStorage.setItem('employe', JSON.stringify(this.employe));
     }

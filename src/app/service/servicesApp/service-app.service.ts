@@ -20,4 +20,8 @@ export class ServiceAppService {
   public save(service: Service):Observable<any>{
     return this.http.post(this.url, service);
   }
+
+  public delete(id : number):Observable<any>{
+    return this.http.delete(this.url+id);
+  }
 }

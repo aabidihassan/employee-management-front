@@ -1,7 +1,7 @@
 import { Famille } from "../famille/famille";
 import { Fonction } from "../fonction/fonction";
 import { Details } from "../rh/details/details";
-import { Service } from "../services/service";
+import { Document } from "../document/document";
 import { Statut } from "../statut/statut";
 import { Utilisateur } from "../utilisateur/utilisateur";
 
@@ -22,4 +22,5 @@ export class Employe {
     public detailsRH !: Details;
     public user !: Utilisateur;
     public fonction !: Fonction;
+    public documents !: Array<Document>;
 }

@@ -13,6 +13,7 @@
                 <tr>
                     <th style="width: 1rem"></th>
                     <th pSortableColumn="nom_service">Nom de service <p-sortIcon field="nom_service"></p-sortIcon></th>
+                    <th></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-product let-expanded="expanded">
@@ -21,6 +22,12 @@
                         <button type="button" pButton pRipple [pRowToggler]="product" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
                     </td>
                     <td style="min-width: 12rem;">{{product.nom_service}}</td>
+                    <td style="min-width: 1rem;">
+                        <div class="flex">
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2" (click)="editService(product)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteService(product)"></button>
+                        </div>
+                    </td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="rowexpansion" let-product>
@@ -34,12 +41,18 @@
                                     </tr>
 
                 <tr>
-                    <th pSortableColumn="poste">Fonction <p-sortIcon field="poste"></p-sortIcon></th>
+                    <th pSortableColumn="poste" colspan="2">Fonction <p-sortIcon field="poste"></p-sortIcon></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-order>
                 <tr>
-                    <td>{{order.poste}}</td>
+                    <td style="min-width: 12rem;">{{order.poste}}</td>
+                    <td style="min-width: 1rem;">
+                        <div class="flex">
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2" (click)="editFonction(order, product)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteFonction(order)"></button>
+                        </div>
+                    </td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">

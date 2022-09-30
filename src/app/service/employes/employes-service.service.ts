@@ -22,7 +22,7 @@ export class EmployesServiceService {
   }
 
   public delete(id:number):Observable<any>{
-    return this.http.delete(this.url+id);
+    return this.http.get(this.url+id);
   }
 
   public getById(id:number):Observable<any>{

@@ -16,4 +16,8 @@ export class FonctionService {
   public save(fonction: Fonction):Observable<any>{
     return this.http.post(this.url ,fonction);
   }
+
+  public delete(id : number):Observable<any>{
+    return this.http.delete(this.url+id);
+  }
 }

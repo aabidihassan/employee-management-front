@@ -50,7 +50,6 @@ export class ServiceAppComponent implements OnInit {
 
         this.serviceApp.getAll().subscribe(data=>{
             this.services = data;
-            console.log(data)
         },err=>{
             this.router.navigate(['/']);
         })
@@ -80,8 +79,37 @@ export class ServiceAppComponent implements OnInit {
         this.fonctionDialog = true;
     }
 
+    editService(service: Service){
+        this.service = { ...service };
+        this.productDialog = true;
+    }
+
+    editFonction(fonction : Fonction, service : Service){
+        fonction.service = service;
+        this.fonction = { ...fonction };
+        this.fonctionDialog = true;
+        console.log(this.fonction)
+    }
+
+    deleteService(service : Service){
+        this.serviceApp.delete(service.id_service).subscribe(data=>{
+            alert("Service bien supprime");
+        },err=>{
+            alert("Error, try again");
+        })
+    }
+
+    deleteFonction(fonction: Fonction){
+        this.fonctionService.delete(fonction.id_fonction).subscribe(data=>{
+            alert("Fonction bien supprime");
+        },err=>{
+            alert("Error, try again");
+        })
+    }
+
     saveFonction(){
         this.submitted = true;
+        console.log(this.fonction)
         this.fonctionService.save(this.fonction).subscribe(data=>{
             this.fonctionDialog = false;
             this.fonction = new Fonction();

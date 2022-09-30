@@ -1,0 +1,83 @@
+<div class="card mt-4">
+    <h5>Liste des educations</h5>
+    <p-table #dt1 [value]="employe.documents" dataKey="id" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
+        [paginator]="true" [globalFilterFields]="['fichier','description']"
+        responsiveLayout="scroll">
+        <ng-template pTemplate="caption">
+            <div class="flex justify-content-between flex-column sm:flex-row">
+                <button pButton label="Ajouter" class="p-button-success mb-2" icon="pi pi-plus"
+                    (click)="openNew()"></button>
+                <span class="p-input-icon-left mb-2">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" #filter (input)="onGlobalFilter(dt1, $event)"
+                        placeholder="Chercher" class="w-full" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>
+                    <div class="flex justify-content-between align-items-center">
+                        Fichier
+                    </div>
+                </th>
+                <th>
+                    <div class="flex justify-content-between align-items-center">
+                        Description
+                    </div>
+                </th>
+                <th>
+                    <div class="flex justify-content-between align-items-center">
+
+                    </div>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-customer async>
+            <tr>
+                <td style="min-width: 10rem;">
+                    <a (click)="open(customer.file)" class="linkk">{{customer.fichier}}</a>
+                </td>
+                <td style="min-width: 10rem;">
+                    {{customer.description}}
+                </td>
+                <td style="min-width: 12rem;">
+                    <div class="flex">
+                        <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-success mr-2" (click)="open(customer.file)"></button>
+                        <button pButton pRipple icon="pi pi-download" class="p-button-rounded p-button-primary mr-2" (click)="download(customer.file, customer.fichier)"></button>
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="delete(customer)"></button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="7">Aucun documents est trouvee.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+
+
+
+
+<p-dialog [(visible)]="productDialog" [style]="{width: '600px'}" header="Details de l'education" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="file">Fichier</label>
+            <input (change)="selectFile($event)" type="file" pInputText id="file" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted">Inserer un fichier.</small>
+        </div>
+        <div class="field">
+            <label for="description">Description</label>
+            <input type="text" pInputText id="description" [(ngModel)]="document.description" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !document.description}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !document.description">Inserer une description.</small>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="save()"></button>
+    </ng-template>
+</p-dialog>
