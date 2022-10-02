@@ -163,6 +163,7 @@ export class EmployeComponent implements OnInit {
                 {
                     label: 'Compte',
                     icon: 'pi pi-fw pi-globe',
+                    routerLink: 'compte'
                 },
             ];
 

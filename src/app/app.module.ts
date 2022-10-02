@@ -40,7 +40,8 @@ import { EducationComponent } from './demo/components/pages/employe/champs_cv/ch
 import { ProfessionnelComponent } from './demo/components/pages/employe/champs_cv/champs/professionnel/professionnel/professionnel.component';
 import { StageComponent } from './demo/components/pages/employe/champs_cv/champs/stage/stage/stage.component';
 import { FichiersComponent } from './demo/components/pages/employe/fichiers/fichiers/fichiers.component';
-import { ProfileComponent } from './demo/componenets/pages/profile/profile/profile.component';
+import { CompteComponent } from './demo/components/pages/employe/compte/compte/compte.component';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @NgModule({
     declarations: [
@@ -57,7 +58,7 @@ import { ProfileComponent } from './demo/componenets/pages/profile/profile/profi
         ProfessionnelComponent,
         StageComponent,
         FichiersComponent,
-        ProfileComponent
+        CompteComponent
     ],
     imports: [
         AppRoutingModule,
@@ -78,7 +79,8 @@ import { ProfileComponent } from './demo/componenets/pages/profile/profile/profi
         DropdownModule,
         RadioButtonModule,
         InputNumberModule,
-        DialogModule
+        DialogModule,
+        SelectButtonModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

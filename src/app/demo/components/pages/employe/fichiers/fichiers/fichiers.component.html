@@ -1,5 +1,5 @@
 <div class="card mt-4">
-    <h5>Liste des educations</h5>
+    <h5>Liste des documents</h5>
     <p-table #dt1 [value]="employe.documents" dataKey="id" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
         [paginator]="true" [globalFilterFields]="['fichier','description']"
         responsiveLayout="scroll">
@@ -62,7 +62,7 @@
 
 
 
-<p-dialog [(visible)]="productDialog" [style]="{width: '600px'}" header="Details de l'education" [modal]="true" class="p-fluid">
+<p-dialog [(visible)]="productDialog" [style]="{width: '600px'}" header="Details de document" [modal]="true" class="p-fluid">
     <ng-template pTemplate="content">
         <div class="field">
             <label for="file">Fichier</label>

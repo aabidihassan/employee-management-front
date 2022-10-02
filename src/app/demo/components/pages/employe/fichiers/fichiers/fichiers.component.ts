@@ -44,7 +44,7 @@ export class FichiersComponent implements OnInit {
         if(doc == id) delete this.employe.documents[index]
     })
     this.documentService.delete(id.id_document).subscribe(data=>{
-        alert("Fichier bien supprime")
+        this.employe.documents = this.employe.documents.filter((d) => d.id_document != id.id_document);
     },err=>{
         alert("Error")
     })
@@ -84,12 +84,11 @@ save(){
         this.productDialog = false;
         this.document = new Document();
         this.formData = new FormData();
+        this.employe.documents.push(data)
         this.documentService.download(data.fichier).subscribe(dt=>{
             data.file = new Blob([dt.body!],
                 { type: `${dt.headers.get('Content-Type')};charset=utf-8`}),
                 dt.headers.get('File-Name')
-                this.employe.documents.push(data)
-
         },err=>{
             console.log("Fichier n'a pas trouve");
         })

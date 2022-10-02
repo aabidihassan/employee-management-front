@@ -4,6 +4,7 @@ import { EmployeComponent } from '../Employe/employe/employe.component';
 import { EducationComponent } from './employe/champs_cv/champs/education/education/education.component';
 import { ProfessionnelComponent } from './employe/champs_cv/champs/professionnel/professionnel/professionnel.component';
 import { StageComponent } from './employe/champs_cv/champs/stage/stage/stage.component';
+import { CompteComponent } from './employe/compte/compte/compte.component';
 import { ContactComponent } from './employe/contact/contact/contact.component';
 import { DonneesComponent } from './employe/donnees/donnees/donnees.component';
 import { FamilleComponent } from './employe/famille/famille/famille.component';
@@ -29,6 +30,7 @@ import { PersonnelComponent } from './employe/personnel/personnel/personnel.comp
                 { path: 'stages', component: StageComponent },
             ] },
             { path: 'fichiers', component: FichiersComponent },
+            { path: 'compte', component: CompteComponent },
         ] }
     ])],
     exports: [RouterModule]

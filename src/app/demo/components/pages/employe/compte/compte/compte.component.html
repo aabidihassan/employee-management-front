@@ -1,0 +1,18 @@
+<div class="card mt-4">
+    <h5>Compte de l'employe</h5>
+    <div class="p-fluid p-formgrid grid">
+        <div class="field col-12">
+            <label htmlFor="username">Nom d'utilisateur</label>
+            <input pInputTextarea type="text" id="username" rows="4" [(ngModel)]="employe.user.username" />
+        </div>
+        <div class="field col-12">
+            <label htmlFor="password">Nouveau mot de passe</label>
+            <input pInputTextarea type="text" id="username" rows="4" [(ngModel)]="employe.user.password" />
+        </div>
+        <div class="field col-12">
+            <label htmlFor="password">Role</label>
+			<p-selectButton [options]="paymentOptions" [(ngModel)]="employe.user.roles[0]" optionLabel="libelle"></p-selectButton>
+        </div>
+    </div>
+    <button pButton pRipple label="Enregistrer" (click)="save()" class="p-button-secondary col-12 mt-2"></button>
+</div>
