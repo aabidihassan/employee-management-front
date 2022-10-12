@@ -4,6 +4,8 @@ import { Details } from "../rh/details/details";
 import { Document } from "../document/document";
 import { Statut } from "../statut/statut";
 import { Utilisateur } from "../utilisateur/utilisateur";
+import { Creation } from "../access/creation/creation";
+import { Modification } from "../access/modification/modification";
 
 export class Employe {
     public id_employe !: number;
@@ -23,4 +25,6 @@ export class Employe {
     public user !: Utilisateur;
     public fonction !: Fonction;
     public documents !: Array<Document>;
+    public creation !: Creation;
+    public modification !: Modification;
 }

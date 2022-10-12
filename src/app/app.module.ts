@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { DatePipe, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppLayoutModule } from './layout/app.layout.module';
@@ -42,6 +42,8 @@ import { StageComponent } from './demo/components/pages/employe/champs_cv/champs
 import { FichiersComponent } from './demo/components/pages/employe/fichiers/fichiers/fichiers.component';
 import { CompteComponent } from './demo/components/pages/employe/compte/compte/compte.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { DataViewModule } from 'primeng/dataview';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 @NgModule({
     declarations: [
@@ -80,13 +82,15 @@ import { SelectButtonModule } from 'primeng/selectbutton';
         RadioButtonModule,
         InputNumberModule,
         DialogModule,
-        SelectButtonModule
+        SelectButtonModule,
+        DataViewModule,
+        OverlayPanelModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         {provide:HTTP_INTERCEPTORS, useClass:TokenInterceptorInterceptor, multi:true},
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService
+        PhotoService, ProductService, DatePipe
     ],
     bootstrap: [AppComponent]
 })

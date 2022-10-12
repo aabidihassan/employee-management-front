@@ -3,10 +3,17 @@
         <div class="card">
             <p-menubar [model]="tieredItems">
                 <ng-template pTemplate="end">
-                    <span class="mr-3">
+                    <span class="mr-3" style="cursor: pointer;" (click)="op1.toggle($event)">
                         <i class="pi pi-fw pi-history"></i>
                         Access
                     </span>
+                    <p-overlayPanel #op1 [showCloseIcon]="true" [style]="{width: '450px'}">
+                        <div class="container">
+                            <span>Date de creation: {{employe.creation?.date_creation}}</span>
+                            <br><br>
+                            <span>Derniere modification: {{employe.modification?.date_modification}}</span>
+                        </div>
+                    </p-overlayPanel>
                 </ng-template>
             </p-menubar>
             <router-outlet></router-outlet>

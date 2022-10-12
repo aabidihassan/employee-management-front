@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
@@ -10,7 +11,7 @@ import { EmployesServiceService } from 'src/app/service/employes/employes-servic
     styleUrls: ['./employe.component.scss'],
 })
 export class EmployeComponent implements OnInit {
-    constructor(private router: Router) {}
+    constructor(private router: Router, private datepipe: DatePipe) {}
 
     employe: Employe = new Employe();
     public tieredItems!: MenuItem[];
@@ -19,6 +20,11 @@ export class EmployeComponent implements OnInit {
         this.employe = history.state.employe;
 
         if (this.employe == null) this.router.navigate(['/employes']);
+
+        if(this.employe.creation!=null)
+        this.employe.creation.date_creation = this.datepipe.transform((this.employe.creation?.date_creation), 'dd/MM/yyyy')!
+        if(this.employe.modification!=null)
+        this.employe.modification.date_modification = this.datepipe.transform((this.employe.modification?.date_modification), 'dd/MM/yyyy')!
 
         this.tieredItems = [
             {
