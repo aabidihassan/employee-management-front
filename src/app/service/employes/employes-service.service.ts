@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { EmployeDto } from 'src/app/dto/Employe/employe-dto';
 import { Employe } from 'src/app/models/employees/employe';
 import { environment } from 'src/environments/environment';
 
@@ -17,7 +18,7 @@ export class EmployesServiceService {
     return this.http.get(this.url);
   }
 
-  public save(employe:Employe):Observable<any>{
+  public save(employe:FormData):Observable<any>{
     return this.http.post(this.url, employe);
   }
 

@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/demo/api/product';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { ProductService } from 'src/app/demo/service/product.service';
 import { EmployesServiceService } from 'src/app/service/employes/employes-service.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Employe } from 'src/app/models/employees/employe';
 import { Service } from 'src/app/models/services/service';
 import { ServiceAppService } from 'src/app/service/servicesApp/service-app.service';
+import { EmployeDto } from 'src/app/dto/Employe/employe-dto';
+import { DocumentService } from 'src/app/service/documents/document.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     templateUrl: './crud.component.html',
@@ -39,12 +41,29 @@ export class CrudComponent implements OnInit {
 
     rowsPerPageOptions = [5, 10, 20];
 
-    constructor(private serviceApp: ServiceAppService , private messageService: MessageService, private employesService : EmployesServiceService, private router : Router) { }
+    formData !: FormData;
+
+    photo !: File | null;
+    file !: Blob;
+
+    constructor(private serviceApp: ServiceAppService, private documentService: DocumentService,private sanitizer: DomSanitizer, private messageService: MessageService, private employesService : EmployesServiceService, private router : Router) { }
 
     ngOnInit() {
 
         this.employesService.getAll().subscribe(data=>{
             this.employes = data;
+            this.employes.forEach((e)=>{
+                this.documentService.download(e.photo).subscribe(data=>{
+                    this.file = new Blob([data.body!],
+                        { type: `${data.headers.get('Content-Type')};charset=utf-8`}),
+                        data.headers.get('File-Name')
+
+                        const unsafeImg = URL.createObjectURL(this.file);
+                        e.file= this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
+                },err=>{
+                    console.log("Errooooooooor");
+                })
+            })
             this.serviceApp.getAll().subscribe(data=>{
                 this.services = data;
             },err=>{
@@ -55,6 +74,8 @@ export class CrudComponent implements OnInit {
             this.ngOnInit();
             //this.router.navigate(['/']);
         })
+
+        this.formData = new FormData();
         //this.productService.getProducts().then(data => this.products = data);
 
         this.statuses = [
@@ -117,16 +138,24 @@ export class CrudComponent implements OnInit {
     hideDialog() {
         this.productDialog = false;
         this.submitted = false;
+        this.formData = new FormData();
+    }
+
+    selectFile(event: any): void {
+        this.photo = event.target.files.item(0)!;
     }
 
     saveProduct() {
         this.submitted = true;
-
-        this.employesService.save(this.employe).subscribe(data=>{
+        this.formData.append("employe", JSON.stringify(this.employe));
+        this.formData.append("photo", this.photo!);
+        this.employesService.save(this.formData).subscribe(data=>{
             this.productDialog = false;
             this.employe = new Employe();
             this.ngOnInit();
         },err=>{
+            this.formData = new FormData();
+            this.photo = null;
             alert("Error, try again")
         })
 
