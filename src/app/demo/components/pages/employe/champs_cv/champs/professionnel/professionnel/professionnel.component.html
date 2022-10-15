@@ -1,6 +1,6 @@
 <div class="card mt-4">
     <h5>Liste des professionnels</h5>
-    <p-table #dt1 [value]="customers1" dataKey="id" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
+    <p-table #dt1 [value]="professionnels" dataKey="id" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
         [paginator]="true" [globalFilterFields]="['date_debut','date_fin','description','entreprise', 'poste']"
         responsiveLayout="scroll">
         <ng-template pTemplate="caption">
@@ -60,7 +60,7 @@
                     {{customer.description}}
                 </td>
                 <td style="min-width: 10rem;">
-                    {{customer.attestation}}
+                    <a (click)="open(customer.document.file)" style="cursor: pointer;">{{customer.document.fichier}}</a>
                 </td>
                 <td style="min-width: 12rem;">
                     {{customer.entreprise}}
@@ -92,6 +92,10 @@
             <small class="ng-dirty ng-invalid" *ngIf="submitted && !professionnel.date_fin">Inserer une date de fin.</small>
         </div>
         <div class="field">
+            <label htmlFor="situation">Attestation</label>
+            <p-dropdown [options]="employe.documents" optionLabel="description" [(ngModel)]="professionnel.document" placeholder="Choisir une attestation"></p-dropdown>
+        </div>
+        <div class="field">
             <label for="description">Description</label>
             <textarea id="description" pInputTextarea [(ngModel)]="professionnel.description" required rows="2" cols="20"></textarea>
         </div>
@@ -104,10 +108,6 @@
             <label for="poste">Poste</label>
             <input type="text" pInputText id="poste" [(ngModel)]="professionnel.poste" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !professionnel.poste}"/>
             <small class="ng-dirty ng-invalid" *ngIf="submitted && !professionnel.poste">Entrer le poste.</small>
-        </div>
-        <div class="field">
-            <label for="name">Attestation</label>
-            <input type="file" accept="file/*" pInputText id="attestation" [(ngModel)]="professionnel.attestation" autofocus />
         </div>
     </ng-template>
 

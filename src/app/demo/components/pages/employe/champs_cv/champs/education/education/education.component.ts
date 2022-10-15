@@ -6,6 +6,7 @@ import { CustomerService } from 'src/app/demo/service/customer.service';
 import { Education } from 'src/app/models/champs_cv/education/education';
 import { Employe } from 'src/app/models/employees/employe';
 import { EducationService } from 'src/app/service/champs_cv/champs/education/education.service';
+import { DocumentService } from 'src/app/service/documents/document.service';
 
 @Component({
   selector: 'app-education',
@@ -15,16 +16,25 @@ import { EducationService } from 'src/app/service/champs_cv/champs/education/edu
 export class EducationComponent implements OnInit {
 
     employe:Employe = JSON.parse(localStorage.getItem('employe')!);
-    customers1: Education[] = [];
+    educations: Education[] = [];
     education : Education = new Education();
     submitted: boolean = false;
     productDialog: boolean = false;
-  constructor(private educationService : EducationService) { }
+  constructor(private educationService : EducationService, private documentService : DocumentService) { }
 
   ngOnInit(): void {
 
     this.educationService.getAllById(this.employe.id_employe).subscribe(data=>{
-        this.customers1 = data;
+        this.educations = data;
+        this.educations.forEach((e)=>{
+            this.documentService.download(e.document.fichier).subscribe(data=>{
+                e.document.file = new Blob([data.body!],
+                    { type: `${data.headers.get('Content-Type')};charset=utf-8`}),
+                    data.headers.get('File-Name')
+            },err=>{
+                console.log("Errooooooooor");
+            })
+        })
     },err=>{
         alert("Error")
     })
@@ -33,6 +43,12 @@ export class EducationComponent implements OnInit {
   onGlobalFilter(table: Table, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
 }
+
+open(file : Blob){
+    var fileURL = window.URL.createObjectURL(file);
+    let tab = window.open()!;
+    tab.location.href = fileURL;
+  }
 
 openNew(){
     this.education = new Education();

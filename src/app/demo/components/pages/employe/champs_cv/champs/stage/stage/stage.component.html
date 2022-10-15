@@ -1,6 +1,6 @@
 <div class="card mt-4">
     <h5>Liste des Stages</h5>
-    <p-table #dt1 [value]="customers1" dataKey="id" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
+    <p-table #dt1 [value]="stages" dataKey="id" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
         [paginator]="true" [globalFilterFields]="['date_debut','date_fin','description','entreprise', 'sujet']"
         responsiveLayout="scroll">
         <ng-template pTemplate="caption">
@@ -60,7 +60,7 @@
                     {{customer.description}}
                 </td>
                 <td style="min-width: 10rem;">
-                    {{customer.attestation}}
+                    <a (click)="open(customer.document.file)" style="cursor: pointer;">{{customer.document.fichier}}</a>
                 </td>
                 <td style="min-width: 12rem;">
                     {{customer.entreprise}}
@@ -85,7 +85,7 @@
 
 
 
-<p-dialog [(visible)]="productDialog" [style]="{width: '600px'}" header="Details de dtage" [modal]="true" class="p-fluid">
+<p-dialog [(visible)]="productDialog" [style]="{width: '600px'}" header="Details de Stage" [modal]="true" class="p-fluid">
     <ng-template pTemplate="content">
         <div class="field">
             <label for="date_debut">Date Debut</label>
@@ -96,6 +96,10 @@
             <label for="date_fin">Date Fin</label>
             <input type="date" pInputText id="date_fin" [(ngModel)]="stage.date_fin" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !stage.date_fin}"/>
             <small class="ng-dirty ng-invalid" *ngIf="submitted && !stage.date_fin">Inserer une date de fin.</small>
+        </div>
+        <div class="field">
+            <label htmlFor="situation">Attestation</label>
+            <p-dropdown [options]="employe.documents" optionLabel="description" [(ngModel)]="stage.document" placeholder="Choisir une attestation"></p-dropdown>
         </div>
         <div class="field">
             <label for="description">Description</label>
@@ -110,10 +114,6 @@
             <label for="sujet">Sujet</label>
             <input type="text" pInputText id="sujet" [(ngModel)]="stage.sujet" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !stage.sujet}"/>
             <small class="ng-dirty ng-invalid" *ngIf="submitted && !stage.sujet">Entrer le sujet.</small>
-        </div>
-        <div class="field">
-            <label for="name">Attestation</label>
-            <input type="file" accept="file/*" pInputText id="attestation" [(ngModel)]="stage.attestation" autofocus />
         </div>
     </ng-template>
 

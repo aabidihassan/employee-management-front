@@ -1,3 +1,4 @@
+import { Document } from "../../document/document";
 import { Employe } from "../../employees/employe";
 
 export class Champ {
@@ -8,5 +9,6 @@ export class Champ {
     public description !: string;
     public attestation !: string;
     public employe !: Employe;
+    public document !: Document;
 
 }

@@ -3,6 +3,7 @@ import { Table } from 'primeng/table';
 import { Professionnel } from 'src/app/models/champs_cv/professionnel/professionnel';
 import { Employe } from 'src/app/models/employees/employe';
 import { ProfessionnelService } from 'src/app/service/champs_cv/champs/professionnel/professionnel.service';
+import { DocumentService } from 'src/app/service/documents/document.service';
 
 @Component({
   selector: 'app-professionnel',
@@ -12,17 +13,26 @@ import { ProfessionnelService } from 'src/app/service/champs_cv/champs/professio
 export class ProfessionnelComponent implements OnInit {
 
     employe:Employe = JSON.parse(localStorage.getItem('employe')!);
-    customers1: Professionnel[] = [];
+    professionnels: Professionnel[] = [];
     professionnel : Professionnel = new Professionnel();
     submitted: boolean = false;
     productDialog: boolean = false;
 
-  constructor(private professionnelService : ProfessionnelService) { }
+  constructor(private professionnelService : ProfessionnelService, private documentService : DocumentService) { }
 
   ngOnInit(): void {
 
     this.professionnelService.getAllById(this.employe.id_employe).subscribe(data=>{
-        this.customers1 = data;
+        this.professionnels = data;
+        this.professionnels.forEach((e)=>{
+            this.documentService.download(e.document.fichier).subscribe(data=>{
+                e.document.file = new Blob([data.body!],
+                    { type: `${data.headers.get('Content-Type')};charset=utf-8`}),
+                    data.headers.get('File-Name')
+            },err=>{
+                console.log("Errooooooooor");
+            })
+        })
     },err=>{
         alert("Error")
     })
@@ -31,6 +41,12 @@ export class ProfessionnelComponent implements OnInit {
   onGlobalFilter(table: Table, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
 }
+
+open(file : Blob){
+    var fileURL = window.URL.createObjectURL(file);
+    let tab = window.open()!;
+    tab.location.href = fileURL;
+  }
 
 openNew(){
     this.professionnel = new Professionnel();
