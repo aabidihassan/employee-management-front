@@ -44,6 +44,7 @@ import { CompteComponent } from './demo/components/pages/employe/compte/compte/c
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { DataViewModule } from 'primeng/dataview';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ListComponent } from './demo/components/conges/list/list/list.component';
 
 @NgModule({
     declarations: [
@@ -60,7 +61,8 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
         ProfessionnelComponent,
         StageComponent,
         FichiersComponent,
-        CompteComponent
+        CompteComponent,
+        ListComponent
     ],
     imports: [
         AppRoutingModule,

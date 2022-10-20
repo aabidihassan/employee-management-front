@@ -7,9 +7,9 @@ import { Router } from '@angular/router';
 import { Employe } from 'src/app/models/employees/employe';
 import { Service } from 'src/app/models/services/service';
 import { ServiceAppService } from 'src/app/service/servicesApp/service-app.service';
-import { EmployeDto } from 'src/app/dto/Employe/employe-dto';
 import { DocumentService } from 'src/app/service/documents/document.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Token } from 'src/app/models/token/token';
 
 @Component({
     templateUrl: './crud.component.html',
@@ -83,6 +83,18 @@ export class CrudComponent implements OnInit {
             { label: 'LOWSTOCK', value: 'lowstock' },
             { label: 'OUTOFSTOCK', value: 'outofstock' }
         ];
+    }
+
+    isAdmin():boolean{
+        return Token.isAdmin();
+    }
+
+    isSuperAdmin():boolean{
+        return Token.isSuperAdmin();
+    }
+
+    isUser():boolean{
+        return Token.isUser();
     }
 
     openNew() {

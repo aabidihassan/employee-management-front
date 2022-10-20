@@ -5,7 +5,7 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
                     <div class="my-2">
-                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+                        <button *ngIf="!isUser()" pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
                         <!-- <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button> -->
                     </div>
                 </ng-template>
@@ -72,7 +72,7 @@
                         <td>
                             <div class="flex">
                                 <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-primary mr-2" (click)="viewEmploye(employe)"></button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteProduct(employe)"></button>
+                                <button *ngIf="isAdmin()" pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteProduct(employe)"></button>
                             </div>
                         </td>
                     </tr>

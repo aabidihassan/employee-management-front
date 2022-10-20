@@ -1,0 +1,72 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <p-dropdown id="year" (onChange)="changeYear()" [options]="years" optionLabel="annee" [(ngModel)]="year" placeholder="Choisir une annee">
+                        </p-dropdown>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="right">
+                    <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
+                    <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
+                </ng-template>
+            </p-toolbar>
+
+            <p-table #dt [value]="conges" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['nom','prenom','matricule','nb_jours', 'annee']" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple" [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">Liste des Conges</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <!-- <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th> -->
+                        <th pSortableColumn="nom">Employe <p-sortIcon field="nom"></p-sortIcon></th>
+                        <th pSortableColumn="matricule">Matricule <p-sortIcon field="matricule"></p-sortIcon></th>
+                        <th pSortableColumn="nb_jours">Nº Jour restant <p-sortIcon field="nb_jours"></p-sortIcon></th>
+                        <th pSortableColumn="annee">Annee <p-sortIcon field="annee"></p-sortIcon></th>
+                        <!-- <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th> -->
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-conge>
+                    <tr>
+                        <!-- <td>
+                            <p-tableCheckbox [value]="employe"></p-tableCheckbox>
+                        </td> -->
+                        <td style="width:28%; min-width:10rem;"><span class="p-column-title">Employe</span>
+                            {{conge.employe.nom + ' ' + conge.employe.prenom}}
+                        </td>
+                        <td style="width:22%; min-width:10rem;">
+                            <span class="p-column-title">Matricule</span>
+                            {{conge.employe.matricule}}
+                        </td>
+                        <td style="width:20%; min-width:10rem;">
+                            <span class="p-column-title">Nº Jour restant</span>
+                            {{conge.nb_jours}}
+                        </td>
+                        <td style="width:20%; min-width:10rem;">
+                            <span class="p-column-title">Telephone</span>
+                            {{conge.annee.annee}}
+                        </td>
+                        <td>
+                            <div class="flex">
+                                <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-primary" (click)="viewEmploye(conge)"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

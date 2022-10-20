@@ -15,6 +15,8 @@ export class EmployeComponent implements OnInit {
 
     employe: Employe = new Employe();
     public tieredItems!: MenuItem[];
+    creation !: string;
+    modification !: string;
 
     ngOnInit(): void {
         this.employe = history.state.employe;
@@ -22,9 +24,9 @@ export class EmployeComponent implements OnInit {
         if (this.employe == null) this.router.navigate(['/employes']);
 
         if(this.employe.creation!=null)
-        this.employe.creation.date_creation = this.datepipe.transform((this.employe.creation?.date_creation), 'dd/MM/yyyy')!
+        this.creation = this.datepipe.transform((this.employe.creation?.date_creation), 'dd/MM/yyyy')!
         if(this.employe.modification!=null)
-        this.employe.modification.date_modification = this.datepipe.transform((this.employe.modification?.date_modification), 'dd/MM/yyyy')!
+        this.modification = this.datepipe.transform((this.employe.modification?.date_modification), 'dd/MM/yyyy')!
 
         this.tieredItems = [
             {
