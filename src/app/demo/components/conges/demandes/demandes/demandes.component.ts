@@ -69,12 +69,6 @@ export class DemandesComponent implements OnInit {
         console.log(this.initiale)
         if(this.etat.etat!='Tous') this.demandes = this.initiale.filter(dem=> dem.etat.etat==this.etat.etat)
         else this.demandes = this.initiale;
-        // console.log(this.initiale);
-        // if(this.etat.etat!='Tous'){
-        //     this.demandes.forEach((dem, index)=>{
-        //         if(this.etat.etat != dem.etat.etat) delete this.demandes[index];
-        //     })
-        // }
     }
 
     openNew() {
@@ -93,11 +87,12 @@ export class DemandesComponent implements OnInit {
 
     saveDemande() {
         this.submitted = true;
+        this.demande.conge.employe.conges = [];
         this.demande.nb_jour = this.calculateDiff(this.demande.date_debut, this.demande.date_fin);
         this.demandesService.save(this.demande).subscribe(data=>{
             this.productDialog = false;
             this.submitted = false;
-            this.ngOnInit();
+            this.demandes.push(data);
         },err=>{
             alert("Error, try again")
         })
