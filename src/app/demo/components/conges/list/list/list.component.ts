@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/demo/api/product';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Router } from '@angular/router';
-import { Employe } from 'src/app/models/employees/employe';
 import { Conge } from 'src/app/models/conges/conge/conge';
-import { CongesService } from 'src/app/service/conges/conges.service';
+import { CongesService } from 'src/app/service/conges/conges/conges.service';
 import { AnneeService } from 'src/app/service/annee/annee.service';
 import { Annee } from 'src/app/models/annee/annee';
 
@@ -16,7 +14,6 @@ import { Annee } from 'src/app/models/annee/annee';
 export class ListComponent implements OnInit {
 
     conges: Conge[] = [];
-
     year !: Annee;
     years : Annee[] = [];
 
@@ -44,7 +41,7 @@ export class ListComponent implements OnInit {
     }
 
     viewEmploye(conge : Conge){
-        this.router.navigate(['conges/'+conge.employe.matricule], { state: { conge : conge } })
+        this.router.navigate(['conges/demandes'], { state: { conge : conge } })
 
     }
 }

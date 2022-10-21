@@ -45,6 +45,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { DataViewModule } from 'primeng/dataview';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ListComponent } from './demo/components/conges/list/list/list.component';
+import { DemandesComponent } from './demo/components/conges/demandes/demandes/demandes.component';
 
 @NgModule({
     declarations: [
@@ -62,7 +63,8 @@ import { ListComponent } from './demo/components/conges/list/list/list.component
         StageComponent,
         FichiersComponent,
         CompteComponent,
-        ListComponent
+        ListComponent,
+        DemandesComponent
     ],
     imports: [
         AppRoutingModule,

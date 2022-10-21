@@ -24,11 +24,11 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Employes',
                 items: [
-                    { label: 'Liste des Employes', icon: 'pi pi-fw pi-users', routerLink: ['/employes'] },
+                    { label: 'Liste des Employes', icon: 'pi pi-fw pi-users', routerLink: ['/employes/'] },
                 ]
             },
             {
-                label: 'Services',
+                label: 'Services & Fonctions',
                 items: [
                     { label: 'Liste de Services', icon: 'pi pi-fw pi-th-large', routerLink: ['/services'] },
                 ]
@@ -36,8 +36,8 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Congés',
                 items: [
-                    { label: 'Demandes de congés', icon: 'pi pi-fw pi-user-plus', routerLink: ['/conges/demades'] },
                     { label: 'Liste de congés', icon: 'pi pi-fw pi-list', routerLink: ['/conges/'] },
+                    { label: 'Demandes de congés', icon: 'pi pi-fw pi-download', routerLink: ['/conges/demandes/'] },
                 ]
             },
             {

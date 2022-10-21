@@ -7,6 +7,7 @@ import { Utilisateur } from "../utilisateur/utilisateur";
 import { Creation } from "../access/creation/creation";
 import { Modification } from "../access/modification/modification";
 import { SafeUrl } from "@angular/platform-browser";
+import { Conge } from "../conges/conge/conge";
 
 export class Employe {
     public id_employe !: number;
@@ -29,4 +30,5 @@ export class Employe {
     public creation ?: Creation;
     public modification ?: Modification;
     public file !: SafeUrl;
+    public conges !: Array<Conge>;
 }

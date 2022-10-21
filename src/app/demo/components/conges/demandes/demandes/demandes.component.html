@@ -1,0 +1,105 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="right">
+                    <p-dropdown id="year" (onChange)="changeEtat()" [options]="etats" optionLabel="etat" [(ngModel)]="etat" placeholder="Filtrer par etat">
+                    </p-dropdown>
+                </ng-template>
+            </p-toolbar>
+
+            <p-table #dt [value]="demandes" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['nom','prenom','matricule','nb_jours', 'annee']" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple" [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">Les demandes de conges</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="nom">Employe <p-sortIcon field="nom"></p-sortIcon></th>
+                        <th pSortableColumn="matricule">Matricule <p-sortIcon field="matricule"></p-sortIcon></th>
+                        <th pSortableColumn="annee">Annee <p-sortIcon field="annee"></p-sortIcon></th>
+                        <th pSortableColumn="nb_jours">Nº Jour <p-sortIcon field="nb_jours"></p-sortIcon></th>
+                        <th pSortableColumn="annee">Etat <p-sortIcon field="annee"></p-sortIcon></th>
+                        <th>Confirmer/Refuser</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-demande>
+                    <tr *ngIf="demande!=null">
+                        <td style="width:25%; min-width:10rem;"><span class="p-column-title">Employe</span>
+                            {{demande.conge.employe.nom + ' ' + demande.conge.employe.prenom}}
+                        </td>
+                        <td style="width:20%; min-width:10rem;">
+                            <span class="p-column-title">Matricule</span>
+                            {{demande.conge?.employe.matricule}}
+                        </td>
+                        <td style="width:15%; min-width:10rem;">
+                            <span class="p-column-title">Annee</span>
+                            {{demande.conge?.annee.annee}}
+                        </td>
+                        <td style="width:15%; min-width:10rem;">
+                            <span class="p-column-title">Nº Jour</span>
+                            {{demande.nb_jour}}
+                        </td>
+                        <td style="width: 20%;">
+                            <span class="p-column-title">Etat</span>
+                                <div [ngStyle]="{'float':'left', 'width':+18+'px', 'height': +18+'px','background-color': demande.etat.etat === 'Confirmée' ? 'green' : demande.etat.etat === 'Annulée' ? 'red' : 'blue'}">
+                                </div>
+                                <span class="ml-2">{{demande.etat.etat}}</span>
+                        </td>
+                        <td>
+                            <div class="flex" *ngIf="demande.etat.etat=='En Attente'">
+                                <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-success" (click)="action(demande, 'Confirmée')"></button>
+                                <button pButton pRipple icon="pi pi-times" class="p-button-rounded p-button-danger ml-2" (click)="action(demande, 'Annulée')"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+
+
+<p-dialog [(visible)]="productDialog" [style]="{width: '600px'}" header="Details de la demande" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="name">Nom</label>
+            <p-dropdown id="employe" [options]="employes" optionLabel="matricule" [(ngModel)]="employe" placeholder="Choisir un employe" [disabled]="bool">
+            </p-dropdown>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !employe">Employe is required.</small>
+        </div>
+        <div class="field">
+            <label for="name">Conge</label>
+            <p-dropdown id="conge" [options]="employe.conges" optionLabel="annee.annee" [(ngModel)]="demande.conge" placeholder="Choisir un conge" [disabled]="bool">
+            </p-dropdown>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !demande.conge">Conge is required.</small>
+        </div>
+        <div class="field">
+            <label for="name">Date depart</label>
+            <input type="date" pInputText id="depart" [(ngModel)]="demande.date_debut" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !demande.date_debut}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !demande.date_debut">Date depart is required.</small>
+        </div>
+        <div class="field">
+            <label for="name">Date fin</label>
+            <input type="date" pInputText id="fin" [(ngModel)]="demande.date_fin" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !demande.date_fin}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !demande.date_fin">Date fin is required.</small>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveDemande()"></button>
+    </ng-template>
+</p-dialog>

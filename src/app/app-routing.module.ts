@@ -5,6 +5,7 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
 import { AuthenticationGuard } from './guards/auth/authentication/authentication.guard';
 import { ServiceAppComponent } from './demo/components/pages/serviceApp/service-app/service-app.component';
 import { ListComponent } from './demo/components/conges/list/list/list.component';
+import { DemandesComponent } from './demo/components/conges/demandes/demandes/demandes.component';
 
 @NgModule({
     imports: [
@@ -19,7 +20,8 @@ import { ListComponent } from './demo/components/conges/list/list/list.component
                     { path: 'blocks', loadChildren: () => import('./demo/components/primeblocks/primeblocks.module').then(m => m.PrimeBlocksModule) },
                     { path: 'employes', loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule) },
                     { path: 'services', component: ServiceAppComponent },
-                    { path: 'conges', component: ListComponent }
+                    { path: 'conges', component: ListComponent },
+                    { path: 'conges/demandes', component: DemandesComponent },
                 ],canActivate:[AuthenticationGuard]
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },
