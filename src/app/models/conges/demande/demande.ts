@@ -1,3 +1,4 @@
+import { Employe } from "../../employees/employe";
 import { Conge } from "../conge/conge";
 import { Etat } from "../etat/etat";
 
@@ -8,4 +9,5 @@ export class Demande {
     public etat !: Etat;
     public nb_jour !: number;
     public conge !: Conge;
+    public adjoint !: Employe;
 }

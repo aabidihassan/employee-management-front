@@ -17,6 +17,10 @@ export class ServiceAppService {
     return this.http.get(this.url);
   }
 
+  public getEmployesByService(id:number):Observable<any>{
+    return this.http.get(this.url+"service/"+id);
+  }
+
   public save(service: Service):Observable<any>{
     return this.http.post(this.url, service);
   }

@@ -76,7 +76,7 @@
     <ng-template pTemplate="content">
         <div class="field">
             <label for="name">Nom</label>
-            <p-dropdown id="employe" [options]="employes" optionLabel="matricule" [(ngModel)]="employe" placeholder="Choisir un employe" [disabled]="bool">
+            <p-dropdown id="employe" (onChange)="changeEmploye()" [options]="employes" optionLabel="matricule" [(ngModel)]="employe" placeholder="Choisir un employe" [disabled]="bool">
             </p-dropdown>
             <small class="ng-dirty ng-invalid" *ngIf="submitted && !employe">Employe is required.</small>
         </div>
@@ -95,6 +95,11 @@
             <label for="name">Date fin</label>
             <input type="date" pInputText id="fin" [(ngModel)]="demande.date_fin" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !demande.date_fin}"/>
             <small class="ng-dirty ng-invalid" *ngIf="submitted && !demande.date_fin">Date fin is required.</small>
+        </div>
+        <div class="field">
+            <label for="name">Adjoint</label>
+            <p-dropdown id="adjoint" [options]="services" optionLabel="matricule" [(ngModel)]="demande.adjoint" placeholder="Choisir un adjoint">
+            </p-dropdown>
         </div>
     </ng-template>
 

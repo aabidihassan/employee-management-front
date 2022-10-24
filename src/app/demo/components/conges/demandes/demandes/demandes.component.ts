@@ -6,8 +6,10 @@ import { Conge } from 'src/app/models/conges/conge/conge';
 import { Demande } from 'src/app/models/conges/demande/demande';
 import { Etat } from 'src/app/models/conges/etat/etat';
 import { Employe } from 'src/app/models/employees/employe';
+import { Service } from 'src/app/models/services/service';
 import { DemandesService } from 'src/app/service/conges/demande/demandes.service';
 import { EmployesServiceService } from 'src/app/service/employes/employes-service.service';
+import { ServiceAppService } from 'src/app/service/servicesApp/service-app.service';
 
 @Component({
     templateUrl: './demandes.component.html',
@@ -27,8 +29,9 @@ export class DemandesComponent implements OnInit {
     initiale !: Array<Demande>;
     deleteProductDialog: boolean = false;
     selectedetat !: string;
+    services : Employe[] = [];
 
-    constructor(private demandesService : DemandesService, private router : Router, private employeService : EmployesServiceService) { }
+    constructor(private demandesService : DemandesService, private serviceService : ServiceAppService ,private router : Router, private employeService : EmployesServiceService) { }
 
     ngOnInit() {
 
@@ -93,6 +96,15 @@ export class DemandesComponent implements OnInit {
         this.submitted = false;
         this.deleteProductDialog = false;
         this.demande = new Demande();
+    }
+
+    changeEmploye(){
+        this.serviceService.getEmployesByService(this.employe.fonction.service.id_service).subscribe(data=>{
+            this.services = data;
+            this.services = this.services.filter(emp => emp.id_employe!=this.employe.id_employe);
+        },err=>{
+            console.log(err);
+        })
     }
 
     onGlobalFilter(table: Table, event: Event) {
