@@ -25,6 +25,8 @@ export class DemandesComponent implements OnInit {
     submitted: boolean = false;
     productDialog: boolean = false;
     initiale !: Array<Demande>;
+    deleteProductDialog: boolean = false;
+    selectedetat !: string;
 
     constructor(private demandesService : DemandesService, private router : Router, private employeService : EmployesServiceService) { }
 
@@ -66,7 +68,6 @@ export class DemandesComponent implements OnInit {
     }
 
     changeEtat(){
-        console.log(this.initiale)
         if(this.etat.etat!='Tous') this.demandes = this.initiale.filter(dem=> dem.etat.etat==this.etat.etat)
         else this.demandes = this.initiale;
     }
@@ -76,9 +77,22 @@ export class DemandesComponent implements OnInit {
         this.productDialog = true;
     }
 
+    confirmDelete() {
+        this.demande.etat.etat = this.selectedetat;
+        this.demandesService.save(this.demande).subscribe(data=>{
+            this.deleteProductDialog = false;
+            this.employe = new Employe();
+            this.ngOnInit();
+        },err=>{
+            alert("Error, try again")
+        })
+    }
+
     hideDialog() {
         this.productDialog = false;
         this.submitted = false;
+        this.deleteProductDialog = false;
+        this.demande = new Demande();
     }
 
     onGlobalFilter(table: Table, event: Event) {
@@ -98,13 +112,10 @@ export class DemandesComponent implements OnInit {
         })
     }
 
-    action(demande:Demande, etat:string){
-        demande.etat.etat = etat;
-        this.demandesService.save(demande).subscribe(data=>{
-            this.ngOnInit();
-        },err=>{
-            alert("Error, try again")
-        })
+    action(dem:Demande, etat:string){
+        this.deleteProductDialog = true;
+        this.demande = dem;
+        this.selectedetat = etat;
     }
 
     calculateDiff(de:string, jusqua:string){
