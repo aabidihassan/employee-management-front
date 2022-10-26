@@ -5,6 +5,7 @@ import { EducationComponent } from './employe/champs_cv/champs/education/educati
 import { ProfessionnelComponent } from './employe/champs_cv/champs/professionnel/professionnel/professionnel.component';
 import { StageComponent } from './employe/champs_cv/champs/stage/stage/stage.component';
 import { CompteComponent } from './employe/compte/compte/compte.component';
+import { CongesComponent } from './employe/conges/conges/conges.component';
 import { ContactComponent } from './employe/contact/contact/contact.component';
 import { DonneesComponent } from './employe/donnees/donnees/donnees.component';
 import { FamilleComponent } from './employe/famille/famille/famille.component';
@@ -31,6 +32,7 @@ import { PersonnelComponent } from './employe/personnel/personnel/personnel.comp
             ] },
             { path: 'fichiers', component: FichiersComponent },
             { path: 'compte', component: CompteComponent },
+            { path: 'conges', component: CongesComponent },
         ] }
     ])],
     exports: [RouterModule]

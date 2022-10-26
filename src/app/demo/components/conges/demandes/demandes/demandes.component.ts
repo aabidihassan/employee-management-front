@@ -48,8 +48,9 @@ export class DemandesComponent implements OnInit {
 
         if(history.state.conge==null){
             this.demandesService.getAll().subscribe(data=>{
-                this.demandes = data;
                 this.initiale = data;
+                this.initiale.reverse();
+                this.demandes = this.initiale;
             },err=>{
                 this.router.navigate(['/']);
             })
@@ -65,8 +66,9 @@ export class DemandesComponent implements OnInit {
             this.demande.conge = history.state.conge;
             this.employe.conges = new Array<Conge>;
             this.employe.conges.push(this.demande.conge);
-            this.demandes = history.state.conge.demandes;
             this.initiale = history.state.conge.demandes;
+            this.initiale.reverse();
+            this.demandes = this.initiale;
         }
     }
 
@@ -104,6 +106,7 @@ export class DemandesComponent implements OnInit {
             this.services = this.services.filter(emp => emp.id_employe!=this.employe.id_employe);
         },err=>{
             console.log(err);
+            this.services = [];
         })
     }
 

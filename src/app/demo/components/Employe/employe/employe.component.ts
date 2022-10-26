@@ -96,6 +96,12 @@ export class EmployeComponent implements OnInit {
                 icon: 'pi pi-fw pi-folder-open',
                 routerLink: 'fichiers'
             },
+            { separator: true },
+            {
+                label: 'Conges',
+                icon: 'pi pi-fw pi-folder-open',
+                routerLink: 'conges'
+            },
         ];
 
         if(this.employe.user != null){
@@ -173,11 +179,16 @@ export class EmployeComponent implements OnInit {
                     icon: 'pi pi-fw pi-globe',
                     routerLink: 'compte'
                 },
+                { separator: true },
+                {
+                    label: 'Conges',
+                    icon: 'pi pi-fw pi-calendar-times',
+                    routerLink: 'conges'
+                },
             ];
 
 
         }
-
         localStorage.setItem('employe', JSON.stringify(this.employe));
     }
 

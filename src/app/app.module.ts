@@ -46,6 +46,7 @@ import { DataViewModule } from 'primeng/dataview';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ListComponent } from './demo/components/conges/list/list/list.component';
 import { DemandesComponent } from './demo/components/conges/demandes/demandes/demandes.component';
+import { CongesComponent } from './demo/components/pages/employe/conges/conges/conges.component';
 
 @NgModule({
     declarations: [
@@ -64,7 +65,8 @@ import { DemandesComponent } from './demo/components/conges/demandes/demandes/de
         FichiersComponent,
         CompteComponent,
         ListComponent,
-        DemandesComponent
+        DemandesComponent,
+        CongesComponent
     ],
     imports: [
         AppRoutingModule,

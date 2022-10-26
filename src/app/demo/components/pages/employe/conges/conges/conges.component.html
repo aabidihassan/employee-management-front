@@ -1,0 +1,121 @@
+<div class="card mt-4">
+        <h5>Liste des conges</h5>
+        <p-toast></p-toast>
+        <p-table [value]="conges" dataKey="annee.annee" [expandedRowKeys]="expandedRows" responsiveLayout="scroll">
+            <ng-template pTemplate="caption">
+                <button pButton icon="pi pi-fw {{isExpanded ? 'pi-minus' : 'pi-plus'}}" label="{{isExpanded ? 'Cacher les demandes' : 'Voir tous les demandes'}}" (click)="expandAll()"></button>
+                <div class="flex table-header">
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 1rem"></th>
+                    <th pSortableColumn="annee">Annee <p-sortIcon field="annee"></p-sortIcon></th>
+                    <th pSortableColumn="nb_jours">Nº Jours restant <p-sortIcon field="nb_jours"></p-sortIcon></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-conge let-expanded="expanded">
+                <tr>
+                    <td>
+                        <button type="button" pButton pRipple [pRowToggler]="conge" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                    </td>
+                    <td style="min-width: 12rem;">{{conge.annee.annee}}</td>
+                    <td style="min-width: 12rem;">{{conge.nb_jours}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="rowexpansion" let-cong>
+                <tr>
+                    <td colspan="7">
+                        <div class="p-3">
+                            <p-table [value]="cong.demandes" dataKey="poste" responsiveLayout="scroll">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <button pButton pRipple label="Nouvelle demande" icon="pi pi-plus" class="p-button-success mr-2 mb-2" (click)="openNewFonction(cong)"></button>
+                                    </tr>
+
+                <tr>
+                    <th pSortableColumn="date_debut">Date debut <p-sortIcon field="date_debut"></p-sortIcon></th>
+                    <th pSortableColumn="date_fin">Date fin <p-sortIcon field="date_fin"></p-sortIcon></th>
+                    <th pSortableColumn="nb_jour">Nº Jours <p-sortIcon field="nb_jour"></p-sortIcon></th>
+                    <th pSortableColumn="adjoint">Adjoint <p-sortIcon field="adjoint"></p-sortIcon></th>
+                    <th pSortableColumn="adjoint">Etat <p-sortIcon field="adjoint"></p-sortIcon></th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-demande>
+                <tr>
+                    <td style="min-width: 12rem;">{{demande.date_debut}}</td>
+                    <td style="min-width: 12rem;">{{demande.date_fin}}</td>
+                    <td style="min-width: 8rem;">{{demande.nb_jour}}</td>
+                    <td style="min-width: 10rem;">{{demande.adjoint?.matricule}}</td>
+                    <td style="min-width: 10rem;">
+                        <span class="p-column-title">Etat</span>
+                        <div [ngStyle]="{'float':'left', 'width':+18+'px', 'height': +18+'px','background-color': demande.etat.etat === 'Confirmée' ? 'green' : demande.etat.etat === 'Annulée' ? 'red' : 'blue'}"></div>
+                        <span class="ml-2">{{demande.etat.etat}}</span>
+                    </td>
+                    <td style="min-width: 10rem;">
+                        <div class="flex" *ngIf="demande.etat.etat=='En Attente'">
+                            <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-success" (click)="action(demande, 'Confirmée')"></button>
+                            <button pButton pRipple icon="pi pi-times" class="p-button-rounded p-button-danger ml-2" (click)="action(demande, 'Annulée')"></button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="6">There are no order for this product yet.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    </td>
+    </tr>
+    </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="fonctionDialog" [style]="{width: '600px'}" header="Details de la demande" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="name">Nom</label>
+            <input type="text" pInputText id="employe" [(ngModel)]="employe.matricule" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !employe.matricule}" [disabled]="true" />
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !employe">Employe is required.</small>
+        </div>
+        <div class="field">
+            <label for="name">Conge</label>
+            <input type="text" pInputText id="conge" [(ngModel)]="demande.conge.annee.annee" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !employe.matricule}" [disabled]="true" />
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !demande.conge">Conge is required.</small>
+        </div>
+        <div class="field">
+            <label for="name">Date depart</label>
+            <input type="date" pInputText id="depart" [(ngModel)]="demande.date_debut" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !demande.date_debut}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !demande.date_debut">Date depart is required.</small>
+        </div>
+        <div class="field">
+            <label for="name">Date fin</label>
+            <input type="date" pInputText id="fin" [(ngModel)]="demande.date_fin" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !demande.date_fin}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !demande.date_fin">Date fin is required.</small>
+        </div>
+        <div class="field">
+            <label for="name">Adjoint</label>
+            <p-dropdown id="adjoint" [options]="services" optionLabel="matricule" [(ngModel)]="demande.adjoint" placeholder="Choisir un adjoint">
+            </p-dropdown>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveFonction()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="deleteProductDialog" header="Confirmation" [modal]="true" [style]="{width:'450px'}">
+    <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span *ngIf="demande">Êtes-vous sûr de vouloir changer l'état de la demande?</span>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="Non" (click)="hideDialog()"></button>
+        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Oui" (click)="confirmDelete()"></button>
+    </ng-template>
+</p-dialog>
