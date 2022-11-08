@@ -47,6 +47,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ListComponent } from './demo/components/conges/list/list/list.component';
 import { DemandesComponent } from './demo/components/conges/demandes/demandes/demandes.component';
 import { CongesComponent } from './demo/components/pages/employe/conges/conges/conges.component';
+import { AvertissementsComponent } from './demo/components/pages/avertissements/avertissements/avertissements.component';
 
 @NgModule({
     declarations: [
@@ -66,7 +67,8 @@ import { CongesComponent } from './demo/components/pages/employe/conges/conges/c
         CompteComponent,
         ListComponent,
         DemandesComponent,
-        CongesComponent
+        CongesComponent,
+        AvertissementsComponent
     ],
     imports: [
         AppRoutingModule,

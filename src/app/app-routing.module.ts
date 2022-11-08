@@ -6,6 +6,7 @@ import { AuthenticationGuard } from './guards/auth/authentication/authentication
 import { ServiceAppComponent } from './demo/components/pages/serviceApp/service-app/service-app.component';
 import { ListComponent } from './demo/components/conges/list/list/list.component';
 import { DemandesComponent } from './demo/components/conges/demandes/demandes/demandes.component';
+import { AvertissementsComponent } from './demo/components/pages/avertissements/avertissements/avertissements.component';
 
 @NgModule({
     imports: [
@@ -22,6 +23,7 @@ import { DemandesComponent } from './demo/components/conges/demandes/demandes/de
                     { path: 'services', component: ServiceAppComponent },
                     { path: 'conges', component: ListComponent },
                     { path: 'conges/demandes', component: DemandesComponent },
+                    { path: 'avertissements', component: AvertissementsComponent },
                 ],canActivate:[AuthenticationGuard]
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },

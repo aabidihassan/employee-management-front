@@ -41,6 +41,12 @@ export class AppMenuComponent implements OnInit {
                 ]
             },
             {
+                label: 'Avertissements',
+                items: [
+                    { label: 'Liste des avertissements', icon: 'pi pi-exclamation-triangle', routerLink: ['/avertissements'] },
+                ]
+            },
+            {
                 label: 'UI Components',
                 items: [
                     { label: 'Form Layout', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout'] },
