@@ -5,14 +5,14 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
                     <div class="my-2">
-                        <p-dropdown id="employes" (onChange)="changeYear()" [options]="employes" optionLabel="matricule" [(ngModel)]="avertissementDto.employe" placeholder="Choisir un employe">
+                        <p-dropdown id="employes" (onChange)="changeSearch()" [options]="employes" optionLabel="matricule" [(ngModel)]="avertissementDto.employe" placeholder="Choisir un employe">
                         </p-dropdown>
                     </div>
                     <div class="my-2 ml-2">
-                        <input type="date" pInputText (change)="changeYear()" id="depart" [(ngModel)]="avertissementDto.de" [max]='today' />
+                        <input type="date" pInputText (change)="changeSearch()" id="depart" [(ngModel)]="avertissementDto.de" [max]='today' />
                     </div>
                     <div class="my-2 ml-2">
-                        <input type="date" pInputText (change)="changeYear()" id="fin" [(ngModel)]="avertissementDto.jusqua" [max]='today' />
+                        <input type="date" pInputText (change)="changeSearch()" id="fin" [(ngModel)]="avertissementDto.jusqua" [max]='today' />
                     </div>
                 </ng-template>
 
@@ -21,10 +21,10 @@
                 </ng-template>
             </p-toolbar>
 
-            <p-table #dt [value]="avertissements" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['nom','prenom','matricule','date', 'cause']" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple" [rowHover]="true" dataKey="id_avertissement">
+            <p-table #dt [value]="observations" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['nom','prenom','matricule','date', 'description']" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple" [rowHover]="true" dataKey="id_observation">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                        <h5 class="m-0">Liste des avertissements</h5>
+                        <h5 class="m-0">Liste des observations</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
                             <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
@@ -39,30 +39,30 @@
                         <th pSortableColumn="nom,prenom">Employe <p-sortIcon field="nom,prenom"></p-sortIcon></th>
                         <th pSortableColumn="matricule">Matricule <p-sortIcon field="matricule"></p-sortIcon></th>
                         <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
-                        <th pSortableColumn="cause">Cause <p-sortIcon field="cause"></p-sortIcon></th>
+                        <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon></th>
                         <th></th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-avertissement>
+                <ng-template pTemplate="body" let-observation>
                     <tr>
                         <td style="width:28%; min-width:8rem;"><span class="p-column-title">Employe</span>
-                            {{avertissement.employe.nom + ' ' + avertissement.employe.prenom}}
+                            {{observation.employe.nom + ' ' + observation.employe.prenom}}
                         </td>
                         <td style="width:22%; min-width:8rem;">
                             <span class="p-column-title">Matricule</span>
-                            {{avertissement.employe.matricule}}
+                            {{observation.employe.matricule}}
                         </td>
                         <td style="width:20%; min-width:8rem;">
                             <span class="p-column-title">Date</span>
-                            {{avertissement.date}}
+                            {{observation.date}}
                         </td>
                         <td style="width:20%; min-width:25rem;">
-                            <span class="p-column-title">Cause</span>
-                            {{avertissement.cause}}
+                            <span class="p-column-title">Description</span>
+                            {{observation.description}}
                         </td>
                         <td>
                             <div class="flex">
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="delete(avertissement)"></button>
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="delete(observation)"></button>
                             </div>
                         </td>
                     </tr>
@@ -73,23 +73,23 @@
 </div>
 
 
-<p-dialog [(visible)]="productDialog" [style]="{width: '600px'}" header="Details de l'avertissement" [modal]="true" class="p-fluid">
+<p-dialog [(visible)]="productDialog" [style]="{width: '600px'}" header="Details de l'observation" [modal]="true" class="p-fluid">
     <ng-template pTemplate="content">
         <div class="field">
             <label for="name">Employe</label>
-            <p-dropdown id="employe" [options]="employes" optionLabel="matricule" [(ngModel)]="avertissement.employe" placeholder="Choisir un employe" [disabled]="avertissementDto.employe!=null">
+            <p-dropdown id="employe" [options]="employes" optionLabel="matricule" [(ngModel)]="observation.employe" placeholder="Choisir un employe" [disabled]="avertissementDto.employe!=null">
             </p-dropdown>
-            <small class="ng-dirty ng-invalid" *ngIf="submitted && !avertissement.employe">Employe is required.</small>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !observation.employe">Employe is required.</small>
         </div>
         <div class="field">
             <label for="name">Date</label>
-            <input type="date" pInputText id="depart" [(ngModel)]="avertissement.date" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !avertissement.date}" [disabled]="true"/>
-            <small class="ng-dirty ng-invalid" *ngIf="submitted && !avertissement.date">Date depart is required.</small>
+            <input type="date" pInputText id="depart" [(ngModel)]="observation.date" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !observation.date}" [disabled]="true"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !observation.date">Date depart is required.</small>
         </div>
         <div class="field">
-            <label for="name">Cause</label>
-            <textarea id="cause" pInputTextarea [(ngModel)]="avertissement.cause" required rows="3" cols="20" autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !avertissement.cause}"></textarea>
-            <small class="ng-dirty ng-invalid" *ngIf="submitted && !avertissement.cause">Date depart is required.</small>
+            <label for="name">Description</label>
+            <textarea id="cause" pInputTextarea [(ngModel)]="observation.description" required rows="3" cols="20" autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !observation.description}"></textarea>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !observation.description">Description depart is required.</small>
         </div>
     </ng-template>
 
@@ -102,7 +102,7 @@
 <p-dialog [(visible)]="deleteProductDialog" header="Confirmation" [modal]="true" [style]="{width:'450px'}">
     <div class="flex align-items-center justify-content-center">
         <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-        <span *ngIf="avertissementToDelete">Êtes-vous sûr de vouloir changer l'état de la demande?</span>
+        <span *ngIf="observationToDelete">Êtes-vous sûr de vouloir supprimer cet observation?</span>
     </div>
     <ng-template pTemplate="footer">
         <button pButton pRipple icon="pi pi-times" class="p-button-text" label="Non" (click)="hideDialog()"></button>

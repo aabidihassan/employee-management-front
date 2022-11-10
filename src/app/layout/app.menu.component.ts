@@ -41,9 +41,10 @@ export class AppMenuComponent implements OnInit {
                 ]
             },
             {
-                label: 'Avertissements',
+                label: 'Avis',
                 items: [
-                    { label: 'Liste des avertissements', icon: 'pi pi-exclamation-triangle', routerLink: ['/avertissements'] },
+                    { label: 'Les avertissements', icon: 'pi pi-exclamation-triangle', routerLink: ['/avertissements'] },
+                    { label: 'Les observations', icon: 'pi pi-comments', routerLink: ['/observations'] },
                 ]
             },
             {
