@@ -49,6 +49,7 @@ import { DemandesComponent } from './demo/components/conges/demandes/demandes/de
 import { CongesComponent } from './demo/components/pages/employe/conges/conges/conges.component';
 import { AvertissementsComponent } from './demo/components/process/avertissements/avertissements/avertissements.component';
 import { ObservatiosComponent } from './demo/components/process/observations/observatios/observatios.component';
+import { SanctionsComponent } from './demo/components/process/sanctions/sanctions/sanctions/sanctions.component';
 
 @NgModule({
     declarations: [
@@ -70,7 +71,8 @@ import { ObservatiosComponent } from './demo/components/process/observations/obs
         DemandesComponent,
         CongesComponent,
         AvertissementsComponent,
-        ObservatiosComponent
+        ObservatiosComponent,
+        SanctionsComponent
     ],
     imports: [
         AppRoutingModule,

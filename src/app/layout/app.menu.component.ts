@@ -15,7 +15,7 @@ export class AppMenuComponent implements OnInit {
     ngOnInit() {
         this.model = [
             {
-                label: 'Home',
+                label: 'Accueil',
                 items: [
                     { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] },
                     { label: 'Profile', icon: 'pi pi-fw pi-user', routerLink: ['/profile'] }
@@ -43,8 +43,10 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Avis',
                 items: [
-                    { label: 'Les avertissements', icon: 'pi pi-exclamation-triangle', routerLink: ['/avertissements'] },
-                    { label: 'Les observations', icon: 'pi pi-comments', routerLink: ['/observations'] },
+                    { label: 'Les observations', icon: 'pi pi-thumbs-up', routerLink: ['/observations'] },
+                    { label: 'Les avertissements', icon: 'pi pi-thumbs-down', routerLink: ['/avertissements'] },
+                    { label: 'Les sanctions disiplinaires', icon: 'pi pi-exclamation-triangle', routerLink: ['/sanctions'] },
+                    { label: 'Sanctions vs Employe', icon: 'pi pi-arrows-h', routerLink: ['/sanctions/employes'] },
                 ]
             },
             {

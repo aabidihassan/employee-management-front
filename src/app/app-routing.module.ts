@@ -8,6 +8,7 @@ import { ListComponent } from './demo/components/conges/list/list/list.component
 import { DemandesComponent } from './demo/components/conges/demandes/demandes/demandes.component';
 import { AvertissementsComponent } from './demo/components/process/avertissements/avertissements/avertissements.component';
 import { ObservatiosComponent } from './demo/components/process/observations/observatios/observatios.component';
+import { SanctionsComponent } from './demo/components/process/sanctions/sanctions/sanctions/sanctions.component';
 
 @NgModule({
     imports: [
@@ -26,6 +27,7 @@ import { ObservatiosComponent } from './demo/components/process/observations/obs
                     { path: 'conges/demandes', component: DemandesComponent },
                     { path: 'avertissements', component: AvertissementsComponent },
                     { path: 'observations', component: ObservatiosComponent },
+                    { path: 'sanctions', component: SanctionsComponent },
                 ],canActivate:[AuthenticationGuard]
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },
