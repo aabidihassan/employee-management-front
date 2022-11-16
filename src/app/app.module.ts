@@ -50,6 +50,7 @@ import { CongesComponent } from './demo/components/pages/employe/conges/conges/c
 import { AvertissementsComponent } from './demo/components/process/avertissements/avertissements/avertissements.component';
 import { ObservatiosComponent } from './demo/components/process/observations/observatios/observatios.component';
 import { SanctionsComponent } from './demo/components/process/sanctions/sanctions/sanctions/sanctions.component';
+import { AffectationComponent } from './demo/components/process/sanctions/affectation/affectation/affectation.component';
 
 @NgModule({
     declarations: [
@@ -72,7 +73,8 @@ import { SanctionsComponent } from './demo/components/process/sanctions/sanction
         CongesComponent,
         AvertissementsComponent,
         ObservatiosComponent,
-        SanctionsComponent
+        SanctionsComponent,
+        AffectationComponent
     ],
     imports: [
         AppRoutingModule,

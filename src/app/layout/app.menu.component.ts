@@ -46,7 +46,7 @@ export class AppMenuComponent implements OnInit {
                     { label: 'Les observations', icon: 'pi pi-thumbs-up', routerLink: ['/observations'] },
                     { label: 'Les avertissements', icon: 'pi pi-thumbs-down', routerLink: ['/avertissements'] },
                     { label: 'Les sanctions disiplinaires', icon: 'pi pi-exclamation-triangle', routerLink: ['/sanctions'] },
-                    { label: 'Sanctions vs Employe', icon: 'pi pi-arrows-h', routerLink: ['/sanctions/employes'] },
+                    { label: 'Sanctions vs Employe', icon: 'pi pi-arrows-h', routerLink: ['/sanctions/affectations'] },
                 ]
             },
             {
