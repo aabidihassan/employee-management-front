@@ -51,6 +51,7 @@ import { AvertissementsComponent } from './demo/components/process/avertissement
 import { ObservatiosComponent } from './demo/components/process/observations/observatios/observatios.component';
 import { SanctionsComponent } from './demo/components/process/sanctions/sanctions/sanctions/sanctions.component';
 import { AffectationComponent } from './demo/components/process/sanctions/affectation/affectation/affectation.component';
+import { MiseapiedComponent } from './demo/components/process/miseapied/miseapied/miseapied.component';
 
 @NgModule({
     declarations: [
@@ -74,7 +75,8 @@ import { AffectationComponent } from './demo/components/process/sanctions/affect
         AvertissementsComponent,
         ObservatiosComponent,
         SanctionsComponent,
-        AffectationComponent
+        AffectationComponent,
+        MiseapiedComponent
     ],
     imports: [
         AppRoutingModule,

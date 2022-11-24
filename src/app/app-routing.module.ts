@@ -10,6 +10,7 @@ import { AvertissementsComponent } from './demo/components/process/avertissement
 import { ObservatiosComponent } from './demo/components/process/observations/observatios/observatios.component';
 import { SanctionsComponent } from './demo/components/process/sanctions/sanctions/sanctions/sanctions.component';
 import { AffectationComponent } from './demo/components/process/sanctions/affectation/affectation/affectation.component';
+import { MiseapiedComponent } from './demo/components/process/miseapied/miseapied/miseapied.component';
 
 @NgModule({
     imports: [
@@ -30,6 +31,7 @@ import { AffectationComponent } from './demo/components/process/sanctions/affect
                     { path: 'observations', component: ObservatiosComponent },
                     { path: 'sanctions', component: SanctionsComponent },
                     { path: 'sanctions/affectations', component: AffectationComponent },
+                    { path: 'misesapied', component: MiseapiedComponent },
                 ],canActivate:[AuthenticationGuard]
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },
