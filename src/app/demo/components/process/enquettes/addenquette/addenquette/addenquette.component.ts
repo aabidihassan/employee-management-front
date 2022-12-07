@@ -21,14 +21,20 @@ export class AddenquetteComponent implements OnInit {
     this.enquette = history.state.questionnaire!=null ? history.state.questionnaire : new Questionnaire();
     this.questionService.getAll().subscribe(data=>{
         this.questions = data;
+        console.log(this.enquette.questions);
+        this.questions = this.questions.filter((ques)=>!this.contains(ques));
     })
+  }
+
+  private contains(question : Question):boolean{
+    var response = false;
+    this.enquette.questions.forEach((ques)=>{response = ques.id_question==question.id_question})
+    return response;
   }
 
   save(){
     this.enquetteService.save(this.enquette).subscribe(data=>{
-        console.log(this.enquette);
-        console.log(data);
-        //this.router.navigate(['/enquettes']);
+        this.router.navigate(['/enquettes']);
     },err=>{
         console.log(err);
     })
