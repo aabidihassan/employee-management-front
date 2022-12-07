@@ -1,0 +1,23 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h5>Creation  d'enquette</h5>
+            <div class="p-fluid p-formgrid grid mt-1">
+                <div class="field col-12">
+                    <label htmlFor="nom">Nom de questionnaire</label>
+                    <input pInputTextarea id="nom" type="text" [(ngModel)]="enquette.nom" placeholder="Entrer un nom d'enquette" />
+                </div>
+                <div class="field col-12">
+                    <label htmlFor="nom">Questions</label>
+                    <p-pickList [source]="questions" [target]="enquette.questions" sourceHeader="Questions" targetHeader="Questionnaire" [dragdrop]="true"
+                                [responsive]="true" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}">
+                        <ng-template let-question pTemplate="item">
+                            <div>{{question.question}}</div>
+                        </ng-template>
+                    </p-pickList>
+                </div>
+            </div>
+            <button pButton pRipple label="Enregistrer" (click)="save()" class="p-button-secondary col-12 mt-2"></button>
+        </div>
+    </div>
+</div>

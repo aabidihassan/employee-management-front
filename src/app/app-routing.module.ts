@@ -13,6 +13,7 @@ import { AffectationComponent } from './demo/components/process/sanctions/affect
 import { MiseapiedComponent } from './demo/components/process/miseapied/miseapied/miseapied.component';
 import { QuestionnaireComponent } from './demo/components/process/enquettes/questionnaire/questionnaire/questionnaire.component';
 import { QuestionComponent } from './demo/components/process/enquettes/question/question/question.component';
+import { AddenquetteComponent } from './demo/components/process/enquettes/addenquette/addenquette/addenquette.component';
 
 @NgModule({
     imports: [
@@ -38,6 +39,7 @@ import { QuestionComponent } from './demo/components/process/enquettes/question/
                     [
                         { path: '', component: QuestionnaireComponent },
                         { path: 'questions', component: QuestionComponent },
+                        { path: 'new', component: AddenquetteComponent },
                     ] },
                 ],canActivate:[AuthenticationGuard]
             },

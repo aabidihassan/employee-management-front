@@ -1,1 +1,50 @@
-<p>questionnaire works!</p>
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+                </ng-template>
+            </p-toolbar>
+
+            <p-table #dt [value]="enquettes" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['nom']" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple" [rowHover]="true" dataKey="id_question">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">Liste de questionnaires</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="nom">Questionnaire <p-sortIcon field="nom"></p-sortIcon></th>
+                        <th pSortableColumn="questions">Nb questions <p-sortIcon field="questions"></p-sortIcon></th>
+                        <th pSortableColumn="reponses">Nb Reponses <p-sortIcon field="reponses"></p-sortIcon></th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-enquette>
+                    <tr>
+                        <td style="width:70%; min-width:8rem;"><span class="p-column-title">Questionnaire</span>
+                            {{enquette.nom}}
+                        </td>
+                        <td style="width:10%; min-width:8rem;"><span class="p-column-title">Nb questions</span>
+                            {{enquette.questions.length}}
+                        </td>
+                        <td style="width:10%; min-width:8rem;"><span class="p-column-title">Nb reponses</span>
+                            {{enquette.nb_reponses}}
+                        </td>
+                        <td>
+                            <div class="flex">
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2" (click)="edit(enquette)"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

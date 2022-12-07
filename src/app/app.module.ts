@@ -54,6 +54,8 @@ import { AffectationComponent } from './demo/components/process/sanctions/affect
 import { MiseapiedComponent } from './demo/components/process/miseapied/miseapied/miseapied.component';
 import { QuestionComponent } from './demo/components/process/enquettes/question/question/question.component';
 import { QuestionnaireComponent } from './demo/components/process/enquettes/questionnaire/questionnaire/questionnaire.component';
+import { AddenquetteComponent } from './demo/components/process/enquettes/addenquette/addenquette/addenquette.component';
+import { PickListModule } from 'primeng/picklist';
 
 @NgModule({
     declarations: [
@@ -80,7 +82,8 @@ import { QuestionnaireComponent } from './demo/components/process/enquettes/ques
         AffectationComponent,
         MiseapiedComponent,
         QuestionComponent,
-        QuestionnaireComponent
+        QuestionnaireComponent,
+        AddenquetteComponent
     ],
     imports: [
         AppRoutingModule,
@@ -104,7 +107,8 @@ import { QuestionnaireComponent } from './demo/components/process/enquettes/ques
         DialogModule,
         SelectButtonModule,
         DataViewModule,
-        OverlayPanelModule
+        OverlayPanelModule,
+        PickListModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
