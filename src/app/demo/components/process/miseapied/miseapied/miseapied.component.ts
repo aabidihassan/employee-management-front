@@ -82,9 +82,8 @@ export class MiseapiedComponent implements OnInit {
 
     save(){
         this.miseapiedService.save(this.miseapied).subscribe(data=>{
-            this.misesapied = this.misesapied.filter(av=>av!=this.miseapied);
-            this.misesapied.push(data);
             this.hideDialog();
+            this.ngOnInit();
         },err=>{
             this.router.navigate(['/'])
         })

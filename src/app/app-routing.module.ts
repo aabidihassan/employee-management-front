@@ -11,6 +11,8 @@ import { ObservatiosComponent } from './demo/components/process/observations/obs
 import { SanctionsComponent } from './demo/components/process/sanctions/sanctions/sanctions/sanctions.component';
 import { AffectationComponent } from './demo/components/process/sanctions/affectation/affectation/affectation.component';
 import { MiseapiedComponent } from './demo/components/process/miseapied/miseapied/miseapied.component';
+import { QuestionnaireComponent } from './demo/components/process/enquettes/questionnaire/questionnaire/questionnaire.component';
+import { QuestionComponent } from './demo/components/process/enquettes/question/question/question.component';
 
 @NgModule({
     imports: [
@@ -32,6 +34,11 @@ import { MiseapiedComponent } from './demo/components/process/miseapied/miseapie
                     { path: 'sanctions', component: SanctionsComponent },
                     { path: 'sanctions/affectations', component: AffectationComponent },
                     { path: 'misesapied', component: MiseapiedComponent },
+                    { path: 'enquettes', children:
+                    [
+                        { path: '', component: QuestionnaireComponent },
+                        { path: 'questions', component: QuestionComponent },
+                    ] },
                 ],canActivate:[AuthenticationGuard]
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },

@@ -43,11 +43,24 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Avis',
                 items: [
-                    { label: 'Les observations', icon: 'pi pi-thumbs-up', routerLink: ['/observations'] },
-                    { label: 'Les avertissements', icon: 'pi pi-thumbs-down', routerLink: ['/avertissements'] },
-                    { label: 'Les sanctions disiplinaires', icon: 'pi pi-exclamation-triangle', routerLink: ['/sanctions'] },
-                    { label: 'Sanctions vs Employe', icon: 'pi pi-arrows-h', routerLink: ['/sanctions/affectations'] },
-                    { label: 'Mise a pied', icon: 'pi pi-arrows-h', routerLink: ['/misesapied'] },
+                    {
+                        label: 'Avis', icon: 'pi pi-bell',
+                        items: [
+                            { label: 'Les observations', icon: 'pi pi-thumbs-up', routerLink: ['/observations'] },
+                            { label: 'Les avertissements', icon: 'pi pi-thumbs-down', routerLink: ['/avertissements'] },
+                            { label: 'Mise a pied', icon: 'pi pi-times-circle', routerLink: ['/misesapied'] },
+                            { label: 'Les sanctions disiplinaires', icon: 'pi pi-exclamation-triangle',
+                                items: [
+                                    { label: 'Les sanctions disiplinaires', icon: 'pi pi-align-justify', routerLink: ['/sanctions'] },
+                                    { label: 'Sanctions vs Employe', icon: 'pi pi-plus', routerLink: ['/sanctions/affectations'] },
+                                ]},
+                            { label: 'Les enquettes', icon: 'pi pi-question-circle',
+                                items: [
+                                    { label: 'Les questions', icon: 'pi pi-align-justify', routerLink: ['/enquettes/questions'] },
+                                    { label: 'Les questionnaire', icon: 'pi pi-plus', routerLink: ['/enquettes'] },
+                                ]},
+                        ]
+                    }
                 ]
             },
             {
