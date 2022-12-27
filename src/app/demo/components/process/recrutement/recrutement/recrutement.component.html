@@ -1,0 +1,125 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <p-dropdown id="employes" (onChange)="changeYear()" [options]="employes" optionLabel="matricule" [(ngModel)]="avertissementDto.employe" placeholder="Choisir un employe">
+                        </p-dropdown>
+                    </div>
+                    <div class="my-2 ml-2">
+                        <input type="date" pInputText (change)="changeYear()" id="depart" [(ngModel)]="avertissementDto.de" [max]='today' />
+                    </div>
+                    <div class="my-2 ml-2">
+                        <input type="date" pInputText (change)="changeYear()" id="fin" [(ngModel)]="avertissementDto.jusqua" [max]='today' />
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="right">
+                    <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+                </ng-template>
+            </p-toolbar>
+
+            <p-table #dt [value]="recrutements" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['matricule','date', 'fonction', 'contrat', 'qualification']" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple" [rowHover]="true" dataKey="id_recrutement">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">Liste des recrutements</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="matricule">Matricule <p-sortIcon field="matricule"></p-sortIcon></th>
+                        <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
+                        <th pSortableColumn="fonction">Fonction <p-sortIcon field="fonction"></p-sortIcon></th>
+                        <th pSortableColumn="contrat">Contrat <p-sortIcon field="contrat"></p-sortIcon></th>
+                        <th pSortableColumn="qualification">Qualification <p-sortIcon field="qualification"></p-sortIcon></th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-recrutement>
+                    <tr>
+                        <td style="width:22%; min-width:8rem;">
+                            <span class="p-column-title">Matricule</span>
+                            {{recrutement.demendeur.matricule}}
+                        </td>
+                        <td style="width:20%; min-width:10rem;">
+                            <span class="p-column-title">Date</span>
+                            {{recrutement.date}}
+                        </td>
+                        <td style="width:20%; min-width:15rem;">
+                            <span class="p-column-title">Fonction</span>
+                            {{recrutement.fonction.poste}}
+                        </td>
+                        <td style="width:20%; min-width:8rem;">
+                            <span class="p-column-title">Contrat</span>
+                            {{recrutement.contrat}}
+                        </td>
+                        <td style="width:20%; min-width:12rem;">
+                            <span class="p-column-title">Qualification</span>
+                            {{recrutement.qualification}}
+                        </td>
+                        <td>
+                            <div class="flex">
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="delete(recrutement)"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+
+
+<p-dialog [(visible)]="productDialog" [style]="{width: '600px'}" header="Details du recrutement" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="name">Employe</label>
+            <p-dropdown id="employe" [options]="employes" optionLabel="matricule" [(ngModel)]="recrutement.demendeur" placeholder="Choisir un employe" [disabled]="avertissementDto.employe!=null">
+            </p-dropdown>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !recrutement.demendeur">Demandeur is required.</small>
+        </div>
+        <div class="field">
+            <label for="name">Fonction</label>
+            <p-dropdown id="employe" [options]="fonctions" optionLabel="poste" [(ngModel)]="recrutement.fonction" placeholder="Choisir un poste">
+            </p-dropdown>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !recrutement.fonction">Fonction is required.</small>
+        </div>
+        <div class="field">
+            <label for="name">Date</label>
+            <input type="date" pInputText id="depart" [(ngModel)]="recrutement.date" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !recrutement.date}" [disabled]="true"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !recrutement.date">Date depart is required.</small>
+        </div>
+        <div class="field">
+            <label for="name">Qualification</label>
+            <input type="text" pInputText id="depart" [(ngModel)]="recrutement.qualification" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !recrutement.qualification}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !recrutement.qualification">Qualification is required.</small>
+        </div>
+        <div class="field">
+            <label for="name">Contrat</label>
+            <input type="text" pInputText id="depart" [(ngModel)]="recrutement.contrat" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !recrutement.contrat}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !recrutement.contrat">Contrat is required.</small>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="save()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="deleteProductDialog" header="Confirmation" [modal]="true" [style]="{width:'450px'}">
+    <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span *ngIf="recrutementToDelete">Êtes-vous sûr de vouloir supprimer cet avertissement?</span>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="Non" (click)="hideDialog()"></button>
+        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Oui" (click)="confirmDelete()"></button>
+    </ng-template>
+</p-dialog>

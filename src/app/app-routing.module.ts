@@ -14,6 +14,7 @@ import { MiseapiedComponent } from './demo/components/process/miseapied/miseapie
 import { QuestionnaireComponent } from './demo/components/process/enquettes/questionnaire/questionnaire/questionnaire.component';
 import { QuestionComponent } from './demo/components/process/enquettes/question/question/question.component';
 import { AddenquetteComponent } from './demo/components/process/enquettes/addenquette/addenquette/addenquette.component';
+import { RecrutementComponent } from './demo/components/process/recrutement/recrutement/recrutement.component';
 
 @NgModule({
     imports: [
@@ -41,6 +42,7 @@ import { AddenquetteComponent } from './demo/components/process/enquettes/addenq
                         { path: 'questions', component: QuestionComponent },
                         { path: 'new', component: AddenquetteComponent },
                     ] },
+                    { path: 'recrutements', component: RecrutementComponent },
                 ],canActivate:[AuthenticationGuard]
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },

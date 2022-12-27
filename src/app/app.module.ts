@@ -56,6 +56,7 @@ import { QuestionComponent } from './demo/components/process/enquettes/question/
 import { QuestionnaireComponent } from './demo/components/process/enquettes/questionnaire/questionnaire/questionnaire.component';
 import { AddenquetteComponent } from './demo/components/process/enquettes/addenquette/addenquette/addenquette.component';
 import { PickListModule } from 'primeng/picklist';
+import { RecrutementComponent } from './demo/components/process/recrutement/recrutement/recrutement.component';
 
 @NgModule({
     declarations: [
@@ -83,7 +84,8 @@ import { PickListModule } from 'primeng/picklist';
         MiseapiedComponent,
         QuestionComponent,
         QuestionnaireComponent,
-        AddenquetteComponent
+        AddenquetteComponent,
+        RecrutementComponent
     ],
     imports: [
         AppRoutingModule,

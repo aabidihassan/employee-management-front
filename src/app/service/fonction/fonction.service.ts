@@ -20,4 +20,8 @@ export class FonctionService {
   public delete(id : number):Observable<any>{
     return this.http.delete(this.url+id);
   }
+
+  public getAll():Observable<any>{
+    return this.http.get(this.url);
+  }
 }
